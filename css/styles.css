@@ -1,0 +1,306 @@
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/raleway/raleway-800.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/rubik/rubik-400.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/rubik/rubik-700.woff2") format("woff2");
+  font-display: swap;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  font-family: "Rubik", sans-serif;
+  font-size: 18px;
+  line-height: 30px;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.page-header {
+  position: relative;
+  width: 1160px;
+  margin: 0 auto;
+  padding: 0 60px 0;
+  box-sizing: border-box;
+  background-color: #FFE17F;
+
+}
+
+.page-header:before {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 40px;
+  width: 1160px;
+  margin-left: -60px;
+  background-color: #ffffff;
+}
+
+.header-logo {
+  display: block;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.header-logo:hover {
+  opacity: 0.7;
+}
+
+.header-logo:active {
+  opacity: 0.3;
+}
+
+.header-logo:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.header-interactive {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-search {
+  display: flex;
+  margin-right: 26px;
+}
+
+.header-search-field {
+  width: 359px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 50px 0 0 50px;
+  background-color: #FFE17F;
+  padding-left: 48px;
+  padding-right: 16px;
+  font-size: 16px;
+  line-height: 20px;
+  background: url("../images/share/search.svg") 15px center no-repeat;
+}
+
+.header-search-field::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.header-search-field:focus-visible { /* TODO: обводка не совсем по стайлгайду. Возможно, завернуть в div и включать, когда фокус на потомке.*/
+  outline: 2px solid rgba(175, 79, 255, 1);
+  outline-offset: 2px;
+}
+
+.header-search-field:disabled {
+  opacity: 0.3;
+}
+
+.search-button {
+  width: 160px; /* TODO: решить, как  будет переполняться форма (возможно, завернуть её всю в общий flex. */
+  min-height: 40px;
+  margin: 0;
+  padding: 8px 16px; /* 16px - как в строке поиска */
+  font-size: 16px;
+  line-height: 20px;
+  box-sizing:border-box;
+  border: 2px solid #000000;
+  border-radius: 0 50px 50px 0;
+  border-left: none;
+  background-color: #FFE17F;
+}
+
+.search-button:hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.search-button:active {
+  color: rgba(255, 255, 255, 0.3);
+  background-color: #000000;
+}
+
+.search-button:focus-visible { /* TODO: обводка не совсем по стайлгайду.*/
+  outline: 2px solid rgba(175, 79, 255, 1);
+  outline-offset: 2px;
+}
+
+.search-button:disabled {
+  opacity: 0.3;
+}
+
+.header-user {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 230px;
+  margin-right: auto; /* При недополнении заглавий "Сравнение" и "Корзина" они прижимаются к правому краю. */
+}
+
+.header-user,
+.header-compare,
+.header-basket {
+  margin-top: 5px;  /* При переполнении имени пользователя удерживает эл-ты на том же расстоянии от верха хедера. */
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+  margin-top: 9px;
+  margin-right: 13px;
+}
+
+.header-username {
+  max-width: 130px;
+}
+
+.header-username,
+.header-login,
+.header-logout {
+   margin: 0;
+   text-decoration: none;
+}
+
+.header-logout {
+   margin-left: auto;
+   color: rgba(0, 0, 0, 0.3);
+}
+
+.header-compare {
+  margin-right: 35px;
+}
+
+.header-compare svg,
+.header-basket svg {
+  margin-right: 6px;
+}
+
+.header-basket {
+  position: relative;
+}
+
+.header-counter {
+  display: block; /* display: hidden, когда корзина пуста (счетсик = 0) */
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  left: -18px;
+  top: 5px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.interactive-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+}
+
+.nav-item {
+  margin-right: 45px;
+}
+
+.nav-item:last-child {
+  margin-right: 0;
+}
+
+.foldable {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-foldbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-left: 15px;
+}
+
+.folddown-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.folddown-item {
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 24px;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.popover { /* пока скрыт, чтобы не мешал. */
+  display: none;
+}
