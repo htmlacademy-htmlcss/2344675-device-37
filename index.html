@@ -11,7 +11,7 @@
 
     <header class="page-header">
     <div class="header-wrapper">
-      <a class="logo-wrapper" href="#">
+      <a class="logo-wrapper" href="index.html">
         <svg class="header-logo" width="145" height="36" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M27.2188 0V35.3H19.6135V32.9C17.9124 34.8 15.5107 36 12.1084 36C5.5038 36 0 30.2 0 22.7C0 15.2 5.5038 9.4 12.1084 9.4C15.5107 9.4 18.0124 10.6 19.6135 12.5V0H27.2188ZM19.6135 22.7C19.6135 18.9 17.1118 16.5 13.6094 16.5C10.107 16.5 7.60524 18.9 7.60524 22.7C7.60524 26.5 10.107 28.9 13.6094 28.9C17.1118 28.8 19.6135 26.5 19.6135 22.7Z" fill="black"/>
           <path d="M43.7298 29.1999C45.8313 29.1999 47.5325 28.3999 48.5332 27.2999L54.6374 30.7999C52.1356 34.1999 48.4331 35.9999 43.6298 35.9999C35.0238 35.9999 29.6201 30.1999 29.6201 22.6999C29.6201 15.1999 35.0238 9.3999 43.0294 9.3999C50.4345 9.3999 55.8382 15.0999 55.8382 22.6999C55.8382 23.7999 55.7381 24.7999 55.538 25.6999H37.6256C38.6263 28.2999 40.9279 29.1999 43.7298 29.1999ZM48.333 20.0999C47.5325 17.1999 45.2309 16.0999 42.9293 16.0999C40.0273 16.0999 38.126 17.4999 37.4255 20.0999H48.333Z" fill="black"/>
@@ -80,7 +80,7 @@
       </div>
 
       <nav class="header-nav">
-        <div class="nav-list">
+        <div class="nav-list foldable-list">
           <div class="foldable">
             <a class="nav-link" href="#">Каталог товаров</a>
             <div class="header-foldbutton">
@@ -129,8 +129,104 @@
     </header>
 
     <main class="index-main">
-      <div class="main-filler"> <!-- для отладки всплывающего подменю и sticky footer -->
-        Заполнитель main
+      <h1 class="visually-hidden">Интернет-мазаин Device — крутые устройства под заказ.</h1>
+      <section class="main-hero"> <!-- Обход бага с разным восприятием padding и относительного позиционирования разными браузерами (как в шапке). -->
+        <h2 class="visually-hidden">Промо-товары.</h2>
+        <div class="main-slider">
+          <button class="slider-left" type="submit">
+            <svg width="20" height="60" viewBox="0 0 20 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 60H16.5L0 30L16.5 0H20L3.8 30L20 60Z" fill="black"/>
+            </svg>
+          </button>
+          <button class="slider-right" type="submit">
+            <svg width="20" height="60" viewBox="0 0 20 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M-5.24537e-06 1.74846e-06L3.49999 1.44248e-06L20 30L3.5 60L0 60L16.2 30L-5.24537e-06 1.74846e-06Z" fill="black"/>
+            </svg>
+          </button>
+          <div class="slider-bullets">
+            <div class="slider-bullet bullet-filled"></div>
+            <div class="slider-bullet"></div>
+            <div class="slider-bullet"></div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo-photo-wrapper">
+            <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
+          </div>
+          <div class="promo-info">
+            <h2 class="promo-title">Порхает как бабочка, жалит как пчела!</h2>
+            <p class="promo-text">Этот обычный, на первый взгляд, квадрокоптер оснащен мощным лазером, замаскированным под стандартную камеру.</p>
+            <button class="btn-details" type="submit">Подробнее</button> <!-- (?) Сделать кнопкой или ссылкой? В стайлгайде обозначено как кнопка. -->
+            <ul class="promo-specs">
+              <li>
+                <div class="specs-value">800&nbsp;м</div>
+                <div class="specs-parameter">Дальность полета</div>
+              </li>
+              <li>
+                <div class="specs-value">50&nbsp;м</div>
+                <div class="specs-parameter">Радиус поражения</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo-photo-wrapper">
+            <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
+          </div>
+          <div class="promo-info">
+            <h2 class="promo-title">Порхает как бабочка, жалит как пчела!</h2>
+            <p class="promo-text">Этот обычный, на первый взгляд, квадрокоптер оснащен мощным лазером, замаскированным под стандартную камеру.</p>
+            <button class="btn-details" type="submit">Подробнее</button>
+            <ul class="promo-specs">
+              <li>
+                <div class="specs-value">800&nbsp;м</div>
+                <div class="specs-parameter">Дальность полета</div>
+              </li>
+              <li>
+                <div class="specs-value">50&nbsp;м</div>
+                <div class="specs-parameter">Радиус поражения</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo-photo-wrapper">
+            <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
+          </div>
+          <div class="promo-info">
+            <h2 class="promo-title">Порхает как бабочка, жалит как пчела!</h2>
+            <p class="promo-text">Этот обычный, на первый взгляд, квадрокоптер оснащен мощным лазером, замаскированным под стандартную камеру.</p>
+            <button class="btn-details" type="submit">Подробнее</button>
+            <ul class="promo-specs">
+              <li>
+                <div class="specs-value">800&nbsp;м</div>
+                <div class="specs-parameter">Дальность полета</div>
+              </li>
+              <li>
+                <div class="specs-value">50&nbsp;м</div>
+                <div class="specs-parameter">Радиус поражения</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+      </section>
+
+      <section class="main-categories">
+      </section>
+      <section class="main-services">
+      </section>
+      <section class="main-custom">
+      </section>
+      <div class="main-twosections">
+        <section class="main-about">
+        </section>
+        <section class="main-contacts">
+        </section>
       </div>
     </main>
 
