@@ -610,3 +610,92 @@ outline: 1px solid red; /* (?) Под вопросом - надо как-то д
 .main-filler { /* для отладки всплывающего подменю и sticky footer */
   height: 100px;
 }
+
+
+.page-footer {
+  background-color: #444444;
+}
+
+.footer-wrapper {
+  width: 1160px;
+  margin: 0 auto;
+  padding: 62px 140px;
+}
+
+.footer-logo-wrapper {
+  display: block;
+  margin: 0 0 35px 0;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.footer-address {
+  width: 250px;
+  font-style: normal;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.footer-pages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 35px;
+}
+
+.footer-page {
+  font-family: "Raleway", sans-serif;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.footer-tel {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 1px; /* Чтобы выровнять базовую линию с базовой линией блока "Доставка - гарантия - контакты" (первым, при их переполнении) */
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-corner {
+  display: flex;
+  align-items: center;
+  width: 250px;
+}
+
+.footer-line {
+  display: block;
+  width: 80px;
+  height: 7px;
+  background-color: #FFC700;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
