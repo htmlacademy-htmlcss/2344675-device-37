@@ -46,24 +46,32 @@ body {
   overflow: hidden;
 }
 
+.header-wrapper { /* Чинит баг с разным положением белой полоски (псевдоэлемента) в разных браузерах. */
+  margin: 0 60px 0;
+  position: relative; /* Для корректного отображения outline (иначе его часть скрываеться под белой полоской-псевдоэлементом). */
+}
+
+.logo-wrapper:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 .page-header {
   position: relative;
   width: 1160px;
   margin: 0 auto;
-  padding: 0 60px 0;
   box-sizing: border-box;
   background-color: #FFE17F;
-
 }
 
-.page-header:before {
+.page-header::before {
   content: "";
   position: absolute;
   display: block;
   height: 40px;
   width: 1160px;
-  margin-left: -60px;
   background-color: #ffffff;
+  top: 0;
 }
 
 .header-logo {
@@ -81,7 +89,7 @@ body {
   opacity: 0.3;
 }
 
-.header-logo:focus-visible {
+.header-logo:focus-visible { /* Похоже, сломалось - перепроверить */
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
 }
@@ -95,6 +103,15 @@ body {
   box-sizing: border-box;
 }
 
+.search-wrapper {
+  display: flex;
+}
+
+.search-wrapper:focus-within {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 .header-search {
   display: flex;
   margin-right: 26px;
@@ -102,7 +119,6 @@ body {
 
 .header-search-field {
   width: 359px;
-  height: 40px;
   box-sizing: border-box;
   border: 2px solid #000000;
   border-radius: 50px 0 0 50px;
@@ -118,9 +134,8 @@ body {
   color: rgba(0, 0, 0, 0.3);
 }
 
-.header-search-field:focus-visible { /* TODO: обводка не совсем по стайлгайду. Возможно, завернуть в div и включать, когда фокус на потомке.*/
-  outline: 2px solid rgba(175, 79, 255, 1);
-  outline-offset: 2px;
+.header-search-field:focus-visible {
+  outline: none;
 }
 
 .header-search-field:disabled {
@@ -128,7 +143,7 @@ body {
 }
 
 .search-button {
-  width: 160px; /* TODO: решить, как  будет переполняться форма (возможно, завернуть её всю в общий flex. */
+  width: 160px;
   min-height: 40px;
   margin: 0;
   padding: 8px 16px; /* 16px - как в строке поиска */
@@ -151,9 +166,8 @@ body {
   background-color: #000000;
 }
 
-.search-button:focus-visible { /* TODO: обводка не совсем по стайлгайду.*/
-  outline: 2px solid rgba(175, 79, 255, 1);
-  outline-offset: 2px;
+.search-button:focus-visible {
+  outline: none;
 }
 
 .search-button:disabled {
@@ -172,6 +186,18 @@ body {
 .header-compare,
 .header-basket {
   margin-top: 5px;  /* При переполнении имени пользователя удерживает эл-ты на том же расстоянии от верха хедера. */
+} /* TODO: проверить, как работает при новом переполнении имени пользователя (возможно, удалить селектор) */
+
+.header-user:hover,
+.header-compare:hover,
+.header-basket:hover {
+  opacity: 0.7;
+}
+
+.header-user:active,
+.header-compare:active,
+.header-basket:active {
+  opacity: 0.3;
 }
 
 .user-icon {
@@ -183,6 +209,8 @@ body {
 
 .header-username {
   max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-username,
@@ -197,44 +225,93 @@ body {
    color: rgba(0, 0, 0, 0.3);
 }
 
-.header-compare {
-  margin-right: 35px;
+.header-logout:focus-visible {
+outline: 1px solid red; /* (?) Под вопросом - надо как-то демонстрировать фокус не на всем блоке пользователя, а на эл-те "Выйти". */
 }
 
-.header-compare svg,
-.header-basket svg {
-  margin-right: 6px;
+.header-user:focus-within {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.header-compare {
+  display: block;
+  margin-right: 15px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header-compare:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.header-compare::before {
+  content:url("../images/share/compare.svg");
+  padding-right: 12px;
 }
 
 .header-basket {
+  display: block;
+  color: #000000;
+  text-decoration: none;
   position: relative;
 }
 
+.header-basket::before {
+  content:url("../images/share/basket.svg");
+  margin-left: 18px;
+  /* С учетом большего padding всего эл-та, чтобы outline включал в себя счетчик. При пустой корзине (счетсик не виден) лучше делать эл-т неактивным, чтобы не было некрасивого outline вокруг пустого места. */
+  padding-right: 12px;
+}
+
+.header-basket:focus-visible {
+  outline: 2px solid #AF4FFF;
+}
+
+.header-functions {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .header-counter {
-  display: block; /* display: hidden, когда корзина пуста (счетсик = 0) */
-  width: 21px;
-  height: 21px;
+  display: block; /* display: hidden, когда корзина пуста (счетчик = 0) */
   position: absolute;
-  left: -18px;
+  min-width: 15px; /* 21 (равна высоте) - 2*3 (два padding) */
+  height: 21px;
+  right: calc(100% - 24px);
   top: 5px;
-  border-radius: 50%;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 10px;
   background-color: #ffffff;
   font-size: 12px;
   line-height: 20px;
   text-align: center;
 }
 
+.header-username,
 .interactive-link {
   color: #000000;
   text-decoration: none;
+  outline: none;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .nav-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   list-style: none;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
+  max-width: 50%;
+  position: relative;
 }
 
 .nav-link {
@@ -248,8 +325,29 @@ body {
   letter-spacing: 0.2em;
 }
 
+.nav-link:hover {
+  opacity: 0.7;
+  border-color: rgba(0, 0, 0, 0.7);
+}
+
+.nav-link:active {
+  opacity: 0.3;
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.nav-link-active {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 4px;
+}
+
 .nav-item {
   margin-right: 45px;
+  padding-top: 10px;
 }
 
 .nav-item:last-child {
@@ -262,45 +360,253 @@ body {
   align-items: center;
 }
 
+/* (?) Оно вообще нужно? Ведь сразу открывается подменю. */
+/* (?) Как перекрыть элементом подменю (съедается нижний край обводки)? */
+.foldable:focus-within {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+  z-index: 2;
+}
+
 .header-foldbutton {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
-  border: 2px solid #000000;
+  border: 2px solid rgba(0, 0, 0);
   border-radius: 50%;
   box-sizing: border-box;
   margin-left: 15px;
+  background-image: url("../images/share/button-plus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3;
+}
+
+.foldable:hover .folddown-wrapper,
+.foldable:focus-within .folddown-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.foldable:hover .header-foldbutton {
+  background-image: url("../images/share/button-minus.svg");
+  opacity: 1;
+}
+
+
+.folddown-wrapper {
+  display: none;
+  position: absolute;
+  width: 1160px;
+  top: 100%;
+  left: -60px;
+  list-style: none;
+  padding: 14px 60px;
+  box-sizing: border-box;
+  background-color: #FFE17F;
+  gap: 30px 30px;
+  z-index: 1;
 }
 
 .folddown-list {
   list-style: none;
-  margin-bottom: 14px;
+  margin-top: 0;
+  padding-left: 0;
 }
 
 .folddown-item {
   font-size: 16px;
   line-height: 18px;
-  margin-bottom: 24px;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-bottom: 18px;
+  padding-right: 35px;
   text-decoration: none;
+}
+
+.folddown-item:last-child {
+  margin-bottom: 0;
+}
+
+.folddown-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.folddown-link:hover {
+  opacity: 0.7;
+  border-color: rgba(0, 0, 0, 0.7);
+}
+
+.folddown-link:active {
+  opacity: 0.3;
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.folddown-link:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.folddown-link-active {
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+}
+
+.basket-wrapper {
+  position: relative;
+}
+
+.popover {
+  position: absolute;
+/*   display: flex; */
+  display: none; /* временно, для отладки */
+  flex-direction: column;
+  width: 320px;
+  left: -123px;
+  top: 41px; /* TODO: возможны проблемы при увеличении высоты блока header-basket, проверить */
+  background-color: #000000;
+  color: #ffffff;
+  z-index: 2; /* Перекрывает собой даже открытое подменю шапки. */
+}
+
+.popover::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  margin-left: -7px;
+  background-color: #000000;
+  transform: rotate(45deg);
+}
+
+.popover-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.popover-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  border-bottom: 1px solid #1A1A1A;
+  position: relative;
+}
+
+.popover-link {
+  display: flex;
+  color: #ffffff;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.popover-link:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.popover-openbasket {
+  display: block;
+  min-height: 50px;
+  margin: 20px;
+  padding: 15px 20px 15px; /* Внутренние отступры приравнены к внешним. */
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21.13px;
+  letter-spacing: 0.2em;
+  color: #000000;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popover-openbasket:hover {
+  background-color: #FFE17F;
+}
+
+.popover-openbasket:active {
+  background-color: #FFE17F;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.popover-openbasket:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.popover-openbasket:disabled {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.popover-img {
+  width: 39px;
+  height: 43px;
+}
+
+.popover-goods {
+  width: 152px;
+  margin: 0;
+  padding: 0 23px;
+  overflow-wrap: break-word;
+}
+
+.basket-remove {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px; /* Увеличиваем область клика по закрытия, но не вполтную с ссылкой на товар, чтобы пользователь нечаянно не удалил его из корзины. */
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.basket-remove:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: -9px;
+}
+
+.popover-sums {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  min-height: 44px;
+  padding: 11px 20px;
+  box-sizing: border-box;
+  background-color: #1A1A1A;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.popover-sum {
+  max-width: 45%;
+}
+
+.popover-sum:last-child {
+  text-align: right;
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.popover { /* пока скрыт, чтобы не мешал. */
-  display: none;
+.main-filler { /* для отладки всплывающего подменю и sticky footer */
+  height: 100px;
 }

@@ -10,6 +10,7 @@
   <body>
 
     <header class="page-header">
+    <div class="header-wrapper">
       <a class="logo-wrapper" href="#">
         <svg class="header-logo" width="145" height="36" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M27.2188 0V35.3H19.6135V32.9C17.9124 34.8 15.5107 36 12.1084 36C5.5038 36 0 30.2 0 22.7C0 15.2 5.5038 9.4 12.1084 9.4C15.5107 9.4 18.0124 10.6 19.6135 12.5V0H27.2188ZM19.6135 22.7C19.6135 18.9 17.1118 16.5 13.6094 16.5C10.107 16.5 7.60524 18.9 7.60524 22.7C7.60524 26.5 10.107 28.9 13.6094 28.9C17.1118 28.8 19.6135 26.5 19.6135 22.7Z" fill="black"/>
@@ -24,8 +25,12 @@
 
       <div class="header-interactive">
           <form class="header-search" action="https://echo.htmlacademy.ru/" method="get">
-            <input class="field header-search-field" type="search" name="header-search" id="header-search" placeholder="Поиск по сайту" required>
-            <button class="search-button" type="submit">Найти</button>
+            <div class="search-wrapper">
+              <input class="field header-search-field" type="search" name="header-search" id="header-search" placeholder="Поиск по сайту" required>
+            </div>
+            <div class="search-wrapper">
+              <button class="search-button" type="submit">Найти</button>
+            </div>
           </form>
         <div class="header-user">
           <div class="user-icon">
@@ -33,70 +38,60 @@
               <path d="M0 12H13C12.8 9.4 10.9 7.2 8.3 6.5C9.3 5.9 10 4.8 10 3.5C10 1.6 8.4 0 6.5 0C4.6 0 3 1.6 3 3.5C3 4.8 3.7 5.9 4.7 6.5C2.1 7.2 0.2 9.4 0 12Z" fill="black"/>
             </svg>
           </div>
-          <span class="header-username">Коля Петухов</span> <!-- (?) Как именно должно переполняться поле? -->
-          <a class="header-login visually-hidden" href="#">Войти</a>
+          <a class="header-username" href="#">Коля Петухов</a>
+          <a class="header-login visually-hidden" href="#">Войти</a> <!-- На работающем сайте следует вместо visually-hidden использовать dispplay:none, чтобы не создавать невидимый эл-т, на который попадает фокус с клавиатуры. -->
           <a class="header-logout" href="#">Выйти</a>
         </div>
-        <div class="header-compare">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 0H4V12H6V0Z" fill="black"/><path d="M2 4H0V12H2V4Z" fill="black"/><path d="M10 3H8V12H10V3Z" fill="black"/>
-          </svg>
-          <a class="interactive-link" href="#">Сравнить</a>
-        </div>
-        <div class="header-basket">
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.3 5L11.8 5.2L8.6 0.3C8.5 0.1 8.2 0 8 0C7.8 0 7.5 0.1 7.4 0.3L4.2 5.2H0.7C0.3 5.2 0 5.5 0 5.9C0 6 0 6 0 6.1L1.9 12.9C2.1 13.6 2.6 14 3.3 14H12.7C13.4 14 13.9 13.6 14.1 12.9L16 6C16 5.9 16 5.9 16 5.8C16 5.4 15.7 5 15.3 5ZM8 1.9L10.2 5.1H5.9L8 1.9Z" fill="black"/>
-          </svg>
-          <a class="interactive-link" href="#">Корзина</a>
-          <div class="header-counter">2</div>
-          <div class="popover">
-            <ul class="popover-list">
-              <li class="popover-goods">
-                <img src="images/share/thumbs/goods-stick-amateur-thumb.png" width="39px" height="43px"> <!-- Alt-текст не заполнен, т.к. рядом повторяется описание товара -->
-                <p>Любительская селфи-палка</p>
-                <button class="button basket-remove"> <!-- TODO: вынести в псевдоэлемент для строки товара -->
-                  <img src="images/share/popover-remove.svg" width="10px" height="10px" alt="Удалить из корзины.">
-                </button>
-              </li>
-              <li class="popover-goods">
-                <img src="images/share/thumbs/goods-stick-pro-thumb.png" width="39px" height="43px">
-                <p>Профессиональная селфи-палка</p>
-                <button class="button basket-remove">
-                  <img src="images/share/popover-remove.svg" width="10px" height="10px" alt="Удалить из корзины.">
-                </button>
-              </li>
+        <div class="header-functions">
+          <a class="header-compare" href="#">Сравнить</a>
+          <div class="basket-wrapper">
+            <a class="header-basket" href="#">Корзина
+              <div class="header-counter">2</div>
+            </a>
+            <div class="popover">
+              <ul class="popover-list">
+                <li class="popover-item">
+                  <a class="popover-link" href="#">
+                    <img class="popover-img" src="images/share/thumbs/goods-stick-amateur-thumb.jpg" width="39" height="43" alt="Любительская селфи-палка">
+                    <p class="popover-goods">Любительская селфи&#8209;палка</p>
+                  </a>
+                  <button class="basket-remove" type="submit"><img src="images/share/popover-remove.svg" alt="Удалить из корзины." width="10" height="10"></button>
+                </li>
+                <li class="popover-item">
+                  <a class="popover-link" href="#">
+                    <img class="popover-img" src="images/share/thumbs/goods-stick-pro-thumb.jpg" width="39" height="43"  alt="Профессиональнаяы селфи-палка">
+                    <p class="popover-goods">Профессиональная селфи&#8209;палка</p>
+                  </a>
+                  <button class="basket-remove" type="submit"><img src="images/share/popover-remove.svg" alt="Удалить из корзины." width="10" height="10"></button>
+                </li>
+              </ul>
               <div class="popover-sums">
                 <div class="popover-sum">
-                  Товаров: 2  <!-- Вопрос: Стоит ли здесь оборачивать единственную строку в p или span? -->
+                  Товаров: 2
                 </div>
                 <div class="popover-sum">
-                  Сумма: 2000 ₽
+                  Сумма: 2000&nbsp;₽
                 </div>
               </div>
-              <div class="popover-basket">
-                <a class="popover-link" href="#">Открыть корзину</a>
-              </div>
-            </ul>
+              <a class="popover-openbasket" href="#">Открыть корзину</a>
+            </div>
           </div>
         </div>
       </div>
 
       <nav class="header-nav">
-        <ul class="nav-list">
-          <li class="nav-item foldable">
+        <div class="nav-list">
+          <div class="foldable">
             <a class="nav-link" href="#">Каталог товаров</a>
-            <div class="header-foldbutton"> <!-- Возможно, лучше реализовать как псевдоэлемент, чтобы можно было управлять иконкой (плюс или минус) ч/з CSS. -->
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 7H9V0H7V7H0V9H7V16H9V9H16V7Z" fill="black"/>
-              </svg>
+            <div class="header-foldbutton">
             </div>
-            <div class="folddown-wrapper visually-hidden"> <!-- (!) скрыт на время вёрстки, вернуть -->
+            <div class="folddown-wrapper">
               <ul class="folddown-list">
                 <li class="folddown-item">
                   <a class="folddown-link" href="#">Виртуальная реальность</a>
                 </li>
                 <li class="folddown-item">
-                  <a class="folddown-link" href="catalog.html">Моноподы для cелфи</a>
+                  <a class="folddown-link folddown-link-active" href="catalog.html">Моноподы для cелфи</a>
                 </li>
                 <li class="folddown-item">
                   <a class="folddown-link" href="#">Экшн-камеры</a>
@@ -116,22 +111,27 @@
                 </li>
               </ul>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Доставка</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Гарантия</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Контакты</a>
-          </li>
-        </ul>
+          </div>
+        </div>
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Доставка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-active" href="#">Гарантия</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Контакты</a>
+            </li>
+          </ul>
       </nav>
+    </div>
     </header>
 
     <main class="index-main">
-
+      <div class="main-filler"> <!-- для отладки всплывающего подменю и sticky footer -->
+        Заполнитель main
+      </div>
     </main>
 
     <footer class="page-footer">
