@@ -361,8 +361,6 @@ outline: 1px solid red; /* (?) Под вопросом - надо как-то д
   align-items: center;
 }
 
-/* (?) Оно вообще нужно? Ведь сразу открывается подменю. */
-/* (?) Как перекрыть элементом подменю (съедается нижний край обводки)? */
 .foldable:focus-within {
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
@@ -634,28 +632,50 @@ background-color: aquamarine;
 
 .footer-logo-wrapper {
   display: block;
+  width: min-content;
+  height: 36px;
   margin: 0 0 35px 0;
 }
+
+.footer-logo-wrapper:hover {
+  opacity: 0.7; /* В стайлгайде эл-т на светлом фоне, в верстке – на темном, итоговый цвет не совсем ясен. Сделано единообразно с остальными эл-ми футера. */
+}
+
+.footer-logo-wrapper:active {
+  opacity: 0.3;
+}
+
+.footer-logo-wrapper:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 
 .footer-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 60px;
+  margin-bottom: 52px; /* 60px по макету - 8px padding под адресом и/или телефоном. */
+}
+
+.footer-addresses {
+  width: 250px;
 }
 
 .footer-address {
-  width: 250px;
   font-style: normal;
   color: #ffffff;
   font-size: 16px;
   line-height: 20px;
+  padding-bottom: 8px; /* Половина кегля. */
 }
 
 .footer-pages {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 35px;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 18px 35px;
+  max-width: 500px;
 }
 
 .footer-page {
@@ -669,18 +689,58 @@ background-color: aquamarine;
   text-decoration: none;
 }
 
-.footer-tel {
+.footer-page:hover {
+  color: #FFC700;
+  border-bottom: 2px solid #FFC700;
+}
+
+.footer-page:active {
+  color: rgba(255, 199, 0, 0.3);
+  border-bottom: 2px solid rgba(255, 199, 0, 0.3);
+}
+
+.footer-page:focus-visible {
+  outline: 1px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+
+.footer-phones {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px; /* Половина кегля. */
   width: 250px;
   text-align: right;
+}
+
+.footer-tel {
+  display: block;
+  width: max-content;
+  height: min-content;
   color: #ffffff;
   font-size: 16px;
   line-height: 20px;
-  margin-top: 1px; /* Чтобы выровнять базовую линию с базовой линией блока "Доставка - гарантия - контакты" (первым, при их переполнении)/ 1px = разница м/у их line-height. */
 }
+
+.footer-tel:hover {
+  color: #FFC700;
+}
+
+.footer-tel:active {
+  color: rgba(255, 199, 0, 0.3);
+}
+
+.footer-tel:focus-visible {
+  outline: 1px solid #AF4FFF;
+  outline-offset: 1px;
+}
+
 
 .footer-links {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  padding-left: 250px;
 }
 
 .footer-corner {
@@ -698,11 +758,14 @@ background-color: aquamarine;
 
 .footer-socials {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.footer-social {
+.footer-social-link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -712,10 +775,56 @@ background-color: aquamarine;
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.html-academy-link {
+.footer-social-link:hover {
+  background-color: #FFC700;
+}
+
+.footer-social-link:active { /* (!) Баг: *после* нажатия появляется outline. */
+  background-color: #FFC700;
+  outline: none;
+}
+
+.footer-social-link:active img {
+  opacity: 0.3;
+  outline: none;
+}
+
+.footer-social-link:focus-visible {
+  outline: none;
+}
+
+.footer-social:focus-within {
+  outline: 2px solid #AF4FFF;
+}
+
+.footer-social:active {
+  outline: none;
+}
+
+.html-academy-logo {
   width: 250px;
   text-align: right;
 }
+
+.html-academy-link {
+  display: inline-block;
+  height: 33px;
+}
+
+.academy-svg:hover path {
+  fill: #ffffff;
+}
+
+.academy-svg:active path {
+  fill: rgba(255, 255, 255, 0.3);
+}
+
+.html-academy-link:focus-visible {
+  outline: 1px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+/* Страница main */
 
 .main-hero {
   width: 1160px;
@@ -770,11 +879,22 @@ background-color: aquamarine;
   background-color: #000000;
 }
 
+.promo-screens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 
 .promo {
   display: grid;
   grid-template-columns: 560px auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
+
+
 
 /* TODO: псевдохлемент-полоска позади promo */
 
