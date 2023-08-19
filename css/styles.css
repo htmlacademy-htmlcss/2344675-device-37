@@ -1153,6 +1153,7 @@ body {
   text-transform: uppercase;
   text-align: center;
   background-color: #FFE17F;
+  cursor: pointer;
 }
 
 .services-item-active {
@@ -1161,6 +1162,7 @@ body {
   width: 280px;
   padding-right: 120px;
   text-align: left;
+  cursor: auto;
 }
 
 .main-services-screens {
