@@ -110,6 +110,7 @@ body {
 .search-wrapper:focus-within {
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
+  z-index: 1;
 }
 
 .header-search {
@@ -178,7 +179,7 @@ body {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  width: 230px;
+  width: 170px;
   margin-right: auto; /* При недополнении заглавий "Сравнение" и "Корзина" они прижимаются к правому краю. */
 }
 
@@ -208,9 +209,16 @@ body {
 }
 
 .header-username {
-  max-width: 130px;
+  max-width: 155px;
+  padding-left: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.header-username::before {
+  content: url("../images/share/human.svg");
+  margin-left: -26px;
+  margin-right: 13px;
 }
 
 .header-username,
@@ -221,12 +229,16 @@ body {
 }
 
 .header-logout {
+   align-self: flex-start;
    margin-left: auto;
+   margin-right: 26px;
+   margin-top: 5px;
    color: rgba(0, 0, 0, 0.3);
 }
 
 .header-logout:focus-visible {
-outline: 1px solid red; /* (?) Под вопросом - надо как-то демонстрировать фокус не на всем блоке пользователя, а на эл-те "Выйти". */
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
 }
 
 .header-user:focus-within {
@@ -367,13 +379,14 @@ outline: 1px solid red; /* (?) Под вопросом - надо как-то д
   z-index: 2;
 }
 
-.header-foldbutton {
+.foldable:after {
+  content: "";
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
-  border: 2px solid rgba(0, 0, 0);
+  border: 2px solid #000000;
   border-radius: 50%;
   box-sizing: border-box;
   margin-left: 15px;
@@ -383,23 +396,37 @@ outline: 1px solid red; /* (?) Под вопросом - надо как-то д
   opacity: 0.3;
 }
 
-.foldable:hover .folddown-wrapper,
+.foldable:hover:after {
+  background-image: url("../images/share/button-minus.svg");
+  opacity: 1;
+}
+
+/* .foldable:hover .folddown-wrapper,
 .foldable:focus-within .folddown-wrapper {
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
 .foldable:hover .header-foldbutton {
   background-image: url("../images/share/button-minus.svg");
   opacity: 1;
 }
 
+/*  */ /* (?) Применение backgroung-image ко второй части селектора ЕСЛИ есть hover на первую часть селектора. */
+.folddown-wrapper:hover .foldable::after {
+  background-image: url("../images/share/button-minus.svg");
+  opacity: 1;
+}
+/*  */
+
 .foldable-list {
-  background-color: tomato;
+ z-index: 1; /* Чтобы изображение .promo-photo не перекрывало собой часть ссылки. */
 }
 
-.foldable-list:hover .folddown-wrapper {
+.foldable-list:hover .folddown-wrapper,
+.foldable-list:focus-within .folddown-wrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .folddown-wrapper {
@@ -411,8 +438,7 @@ outline: 1px solid red; /* (?) Под вопросом - надо как-то д
   list-style: none;
   padding: 14px 60px;
   box-sizing: border-box;
-/*   background-color: #FFE17F; */
-background-color: aquamarine;
+  background-color: #FFE17F;
   gap: 30px 30px;
   z-index: 1;
 }
@@ -468,8 +494,8 @@ background-color: aquamarine;
 
 .popover {
   position: absolute;
-/*   display: flex; */
-  display: none; /* временно, для отладки */
+  display: flex;
+  display: none; /* (!) временно, для отладки */
   flex-direction: column;
   width: 320px;
   left: -123px;
@@ -627,7 +653,7 @@ background-color: aquamarine;
 .footer-wrapper {
   width: 1160px;
   margin: 0 auto;
-  padding: 62px 140px;
+  padding: 62px 40px;
 }
 
 .footer-logo-wrapper {
@@ -736,7 +762,6 @@ background-color: aquamarine;
   outline-offset: 1px;
 }
 
-
 .footer-links {
   display: flex;
   justify-content: center;
@@ -775,30 +800,43 @@ background-color: aquamarine;
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.footer-social-link:hover {
-  background-color: #FFC700;
-}
-
-.footer-social-link:active { /* (!) Баг: *после* нажатия появляется outline. */
-  background-color: #FFC700;
-  outline: none;
-}
-
-.footer-social-link:active img {
-  opacity: 0.3;
-  outline: none;
-}
-
 .footer-social-link:focus-visible {
+  outline: none;
+}
+
+.footer-social-link:active {
   outline: none;
 }
 
 .footer-social:focus-within {
   outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
 }
 
-.footer-social:active {
+.footer-social-link:hover {
+  background-color: #FFC700;
+}
+
+.footer-social-link:active {
   outline: none;
+  background-color: #FFC700 ;
+}
+
+.footer-social-link:active::before {
+  opacity: 0.5;
+}
+
+.social-tg::before {
+  content: url("../images/share/socials-tg.svg");
+}
+
+.social-youtube::before {
+  content: url("../images/share/socials-youtube.svg");
+}
+
+.social-twitter::before {
+  content: url("../images/share/socials-twitter.svg");
+  margin-top: 5px;
 }
 
 .html-academy-logo {
@@ -829,12 +867,13 @@ background-color: aquamarine;
 .main-hero {
   width: 1160px;
   margin: 0 auto;
+  margin-bottom: 57px;
   position: relative;
 }
 
 .main-slider {
   position: absolute;
-  min-height: 500px; /* TODO: 750px по стайлгайду; по PP будет другая высота, выверить. */
+  /* min-height: 500px;  *//* TODO: 750px по стайлгайду; по PP будет другая высота, выверить. */
 }
 
 .slider-left,
@@ -844,6 +883,14 @@ background-color: aquamarine;
   height: 60px;
   border: none;
   background-color: transparent;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.slider-left:focus-visible,
+.slider-right:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
 }
 
 .slider-left {
@@ -860,9 +907,10 @@ background-color: aquamarine;
   display: flex;
   justify-content: center;
   gap: 20px;
-  position: absolute;
-  bottom: 0;
-  left: 542px;
+  margin-bottom: 20px;
+  position: relative;
+  top: -12px;
+  z-index: 1;
 }
 
 .slider-bullet {
@@ -873,6 +921,7 @@ background-color: aquamarine;
   border: 2px solid #000000;
   border-radius: 50%;
   background-color: #ffffff;
+  cursor: pointer;
 }
 
 .bullet-filled {
@@ -887,16 +936,38 @@ background-color: aquamarine;
 
 
 .promo {
+  position: relative;
   display: grid;
   grid-template-columns: 560px auto;
   list-style: none;
   margin: 0;
   padding: 0;
+  min-height: 0;
 }
 
+.promo::before {
+  content: "";
+  width: 100%;
+  height: 115px;
+  position: absolute;
+  z-index: -1;
+  background-color: #FFE17F;
+}
 
+.promo-hidden {
+  display: none;
+}
 
-/* TODO: псевдохлемент-полоска позади promo */
+.promo-number {
+  position: absolute;
+  right: 48px;
+  top: 45px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 180px;
+  line-height: 30px;
+
+}
 
 .promo-photo-wrapper {
   position: relative;
@@ -914,6 +985,7 @@ background-color: aquamarine;
   width: 560px;
   padding-top: 85px;
   padding-left: 40px;
+  z-index: 1;
 }
 
 .promo-title {
@@ -960,10 +1032,264 @@ background-color: aquamarine;
 .specs-value {
   margin-bottom: 12px;
   font-size: 36px;
-  line-height: 30px; /* (?) line-height меньше, чем font-size?1 */
+  line-height: 30px; /* (?) line-height меньше, чем font-size? */
 }
 
 .specs-parameter {
   font-size: 16px;
   line-height: 30px;
+}
+
+.main-categories {
+  width: 1160px;
+  margin: 0 auto;
+  margin-bottom: 70px;
+}
+
+.main-cat-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-cat-item {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.main-cat-title {
+  min-height: 60px;
+}
+
+.main-cat-item::before {
+  content: "";
+  width: 160px;
+  height: 160px;
+  background-color: #FFE17F;
+  margin-bottom: 34px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.cat-vr::before {
+  background-image: url("../images/index/cat-vr.svg");
+}
+.cat-sticks::before {
+  background-image: url("../images/index/cat-sticks.svg");
+}
+.cat-actincams::before {
+  background-image: url("../images/index/cat-actioncams.svg");
+}
+.cat-bracelets::before {
+  background-image: url("../images/index/cat-bracelets.svg");
+}
+.cat-watch::before {
+  background-image: url("../images/index/cat-watch.svg");
+}
+.cat-copters::before {
+  background-image: url("../images/index/cat-copters.svg");
+}
+
+.main-services {
+  background-color: #F0F0F0;
+  margin-bottom: 70px;
+}
+
+.main-services-wrapper {
+  width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 287px auto;
+  padding-bottom: 70px;
+  position: relative;
+}
+
+.main-services-wrapper::before {
+  position: absolute;
+  width: 1160px;
+  height: 104px;
+  top: 0;
+  left: 0;
+  color: lime;
+  z-index: 10;
+}
+
+.main-services-list {
+  list-style: none;
+  margin: 0;
+  padding: 65px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  border-right: 7px solid #000000;
+}
+
+.services-list-item {
+  height: 40px;
+  width: 160px;
+  margin: 0;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #FFE17F;
+}
+
+.services-item-active {
+  color: #FFE17F;
+  background-color: #000000;
+  width: 280px;
+  padding-right: 120px;
+  text-align: left;
+}
+
+.main-services-screens {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.display-none {
+  display: none;
+}
+
+.services-screen {
+  list-style: none;
+  margin: 0;
+  padding: 72px 140px 72px 116px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.service-description {
+  width: 475px;
+/*   margin-bottom: 72px; */
+}
+
+.service-title {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway";
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 50px;
+  margin-bottom: 34px;
+}
+
+/* .service-delivery,
+.service-warranty,
+.service-credit {
+  position: relative;
+} */
+
+.service-delivery::after {
+  position: absolute;
+  content:url("../images/index/service-delivery.svg");
+  top: 77px;
+  right: 63px;
+}
+
+.service-warranty::after {
+  position: absolute;
+  content:url("../images/index/service-warranty.svg");
+  top: 62px;
+  right: 45px;
+}
+
+.service-credit::after {
+  position: absolute;
+  content:url("../images/index/service-credit.svg");
+  top: 62px;
+  right: 45px;
+}
+
+.main-custom {
+  width: 1160px;
+  min-height: 100px;
+  background-color: #F0F0F0;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.custom-block {
+  display: block;
+}
+
+.custom-block:hover {
+  background-color: #AF4FFF;
+}
+
+.custom-text {
+  display: block;
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 23px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 38px;
+  padding-bottom: 38px;
+  max-width: 910px;
+}
+
+.custom-block:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 125px;
+  height: 100px;
+  background-color: #FFE17F;
+  background-image: url("../images/index/deliverytruck.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  align-self: center;
+}
+
+/* .custom-text:after {
+  content: url("../images/index/i-gray.svg");
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(220, 220, 220, 0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+} */
+
+.custom-info {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(220, 220, 220, 0.5);
+  align-items: center;
+  justify-content: center;
+  margin: 30px 42px;
 }

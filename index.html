@@ -22,7 +22,6 @@
           <path d="M83.458 0V10.1L91.0633 0H83.458Z" fill="#510094"/>
         </svg>
       </a>
-
       <div class="header-interactive">
           <form class="header-search" action="https://echo.htmlacademy.ru/" method="get">
             <div class="search-wrapper">
@@ -33,15 +32,10 @@
             </div>
           </form>
         <div class="header-user">
-          <div class="user-icon">
-            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 12H13C12.8 9.4 10.9 7.2 8.3 6.5C9.3 5.9 10 4.8 10 3.5C10 1.6 8.4 0 6.5 0C4.6 0 3 1.6 3 3.5C3 4.8 3.7 5.9 4.7 6.5C2.1 7.2 0.2 9.4 0 12Z" fill="black"/>
-            </svg>
-          </div>
           <a class="header-username" href="#">Коля Петухов</a>
-          <a class="header-login visually-hidden" href="#">Войти</a> <!-- На работающем сайте следует вместо visually-hidden использовать dispplay:none, чтобы не создавать невидимый эл-т, на который попадает фокус с клавиатуры. -->
-          <a class="header-logout" href="#">Выйти</a>
+          <a class="header-login visually-hidden" href="#">Войти</a>
         </div>
+        <a class="header-logout" href="#">Выйти</a>
         <div class="header-functions">
           <a class="header-compare" href="#">Сравнить</a>
           <div class="basket-wrapper">
@@ -81,10 +75,7 @@
 
       <nav class="header-nav">
         <div class="nav-list foldable-list">
-          <div class="foldable">
-            <a class="nav-link" href="#">Каталог товаров</a>
-            <div class="header-foldbutton">
-            </div>
+          <a class="nav-link foldable" href="#">Каталог товаров</a>
             <div class="folddown-wrapper">
               <ul class="folddown-list">
                 <li class="folddown-item">
@@ -111,7 +102,6 @@
                 </li>
               </ul>
             </div>
-          </div>
         </div>
           <ul class="nav-list">
             <li class="nav-item">
@@ -130,6 +120,7 @@
 
     <main class="index-main">
       <h1 class="visually-hidden">Интернет-мазаин Device — крутые устройства под заказ.</h1>
+
       <section class="main-hero"> <!-- Обход бага с разным восприятием padding и относительного позиционирования разными браузерами (как в шапке). -->
         <h2 class="visually-hidden">Промо-товары.</h2>
         <div class="main-slider">
@@ -146,7 +137,8 @@
         </div>
 
         <ul class="promo-screens">
-          <li class="promo">
+          <li class="promo ">
+            <div class="promo-number">01</div>
             <div class="promo-photo-wrapper">
               <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
             </div>
@@ -167,43 +159,45 @@
             </div>
           </li>
 
-          <li class="promo">
+          <li class="promo promo-hidden">
+            <div class="promo-number">02</div>
             <div class="promo-photo-wrapper">
-              <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
+              <img class="promo-photo" src="images/index/promo-bracelet.png" width="560" height="560" alt="Фитнес-браслет для похудения">
             </div>
             <div class="promo-info">
-              <h2 class="promo-title">Порхает как бабочка, жалит как пчела!</h2>
-              <p class="promo-text">Этот обычный, на первый взгляд, квадрокоптер оснащен мощным лазером, замаскированным под стандартную камеру.</p>
+              <h2 class="promo-title">Худеем правильно!</h2>
+              <p class="promo-text">Мотивирующие фитнес-браслеты помогут найти в себе силы не пропускать занятия и соблюдать диету.</p>
               <button class="btn-details" type="submit">Подробнее</button>
               <ul class="promo-specs">
                 <li>
-                  <div class="specs-value">800&nbsp;м</div>
-                  <div class="specs-parameter">Дальность полета</div>
-                </li>
-                <li>
-                  <div class="specs-value">50&nbsp;м</div>
-                  <div class="specs-parameter">Радиус поражения</div>
+                  <div class="specs-value">48&nbsp;часов</div>
+                  <div class="specs-parameter">Без подзарядки</div>
                 </li>
               </ul>
             </div>
           </li>
 
-          <li class="promo">
+          <li class="promo promo-hidden">
+            <div class="promo-number">03</div>
             <div class="promo-photo-wrapper">
-              <img class="promo-photo" src="images/index/promo-copter.png" width="560" height="560" alt="Квадракоптер с мощным лазером">
+              <img class="promo-photo" src="images/index/promo-sticks.png" width="560" height="560" alt="Самая длинная селфи-палка">
             </div>
             <div class="promo-info">
-              <h2 class="promo-title">Порхает как бабочка, жалит как пчела!</h2>
-              <p class="promo-text">Этот обычный, на первый взгляд, квадрокоптер оснащен мощным лазером, замаскированным под стандартную камеру.</p>
+              <h2 class="promo-title">Делай селфи, как Бен Стиллер! </h2>
+              <p class="promo-text">Самая длинная палка для селфи доступна в нашем магазине. Восемь (Восемь, Карл!) метров длиной и весом всего 5 кг.</p>
               <button class="btn-details" type="submit">Подробнее</button>
               <ul class="promo-specs">
                 <li>
-                  <div class="specs-value">800&nbsp;м</div>
-                  <div class="specs-parameter">Дальность полета</div>
+                  <div class="specs-value">8,5&nbsp;м</div>
+                  <div class="specs-parameter">Длина палки</div>
                 </li>
                 <li>
-                  <div class="specs-value">50&nbsp;м</div>
-                  <div class="specs-parameter">Радиус поражения</div>
+                  <div class="specs-value">5&nbsp;кг</div>
+                  <div class="specs-parameter">Вес палки</div>
+                </li>
+                <li>
+                  <div class="specs-value">Карбон</div>
+                  <div class="specs-parameter">Материал</div>
                 </li>
               </ul>
             </div>
@@ -211,19 +205,85 @@
         </ul>
 
         <div class="slider-bullets">
-          <div class="slider-bullet bullet-filled"></div>
-          <div class="slider-bullet"></div>
-          <div class="slider-bullet"></div>
+          <button class="slider-bullet bullet-filled" type="submit">
+          </button>
+          <button class="slider-bullet" type="submit">
+          </button>
+          <button class="slider-bullet" type="submit">
+          </button>
         </div>
-
       </section>
 
       <section class="main-categories">
+        <h2 class="visually-hidden">Категории товаров.</h2>
+        <ul class="main-cat-list">
+          <li class="main-cat-item cat-vr">
+            <div class="main-cat-title">Виртуальная реальность</div>
+          </li>
+          <li class="main-cat-item cat-sticks">
+            <div class="main-cat-title">Моноподы для&nbsp;селфи</div>
+          </li>
+          <li class="main-cat-item cat-actincams">
+            <div class="main-cat-title">Экшн-камеры</div>
+          </li>
+          <li class="main-cat-item cat-bracelets">
+            <div class="main-cat-title">Фитнес-браслеты</div>
+          </li>
+          <li class="main-cat-item cat-watch">
+            <div class="main-cat-title">Умные часы</div>
+          </li>
+          <li class="main-cat-item cat-copters">
+            <div class="main-cat-title">Квадрокоптеры</div>
+          </li>
+        </ul>
       </section>
+
       <section class="main-services">
+        <div class="main-services-wrapper">
+          <h2 class="visually-hidden">Услуги</h2>
+          <ul class="main-services-list">
+            <li class="services-list-item services-item-active">Доставка</li>
+            <li class="services-list-item">Гарантия</li>
+            <li class="services-list-item">Кредит</li>
+          </ul>
+          <ul class="main-services-screens">
+            <li class="services-screen">
+              <div class="service-description service-delivery">
+                <h3 class="service-title">Доставка</h3>
+                <div class="service-text">Мы с&nbsp;удовольствием доставим ваш товар прямо
+                  к&nbsp;вашему подъезду совершенно бесплатно! Ведь
+                  мы&nbsp;неплохо заработаем, поднимая его на ваш&nbsp;этаж.
+                </div>
+              </div>
+            </li>
+            <li class="services-screen display-none">
+              <div class="service-description service-warranty">
+                <h3 class="service-title">Гарантия</h3>
+                <div class="service-text">Если из&#8209;за возгорания купленного у&nbsp;нас товара у вас сгорит дом&nbsp;— не переживайте, мы выдадим вам новый. Товар, не&nbsp;дом, конечно&nbsp;же.
+                </div>
+              </div>
+            </li>
+            <li class="services-screen display-none">
+              <div class="service-description service-credit">
+                <h3 class="service-title">Кредит</h3>
+                <div class="service-text">Залезть в&nbsp;долговую яму стало проще! Кредитные консультанты подберут для вас наиболее выгодные условия кредита. Выгодные для банка, разумеется.
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </section>
+
       <section class="main-custom">
+        <h2 class="visually-hidden">Товар под заказ</h2>
+        <a class="custom-block">
+          <div class="custom-text">Доставим редкий товар под заказ</div>
+        </a>
+        <div class="custom-info">
+          <img src="images/index/i-gray.svg" width="2" height="12" alt="Подробности о доставке под заказ.">
+        </div>
       </section>
+
       <div class="main-twosections">
         <section class="main-about">
         </section>
@@ -246,6 +306,7 @@
             </svg>
           </svg>
         </a>
+
         <div class="footer-info">
           <div class="footer-addresses">
             <address class="footer-address">
@@ -261,24 +322,20 @@
             <a class="footer-tel" href="tel:+78128121212">Тел.: +7 (812) 812-12-12</a>
           </div>
         </div>
+
         <div class="footer-links">
           <div class="footer-socials">
             <div class="footer-social">
-              <a class="footer-social-link" href="#">
-                <img src="images/share/socials-tg.svg" width="14" height="12" alt="Telegram">
-              </a>
+              <a class="footer-social-link social-tg" href="#"></a>
             </div>
             <div class="footer-social">
-              <a class="footer-social-link" href="#">
-                <img src="images/share/socials-youtube.svg" width="16" height="11" alt="YouTube">
-              </a>
+              <a class="footer-social-link social-youtube" href="#"></a>
             </div>
             <div class="footer-social">
-              <a class="footer-social-link" href="#">
-                <img src="images/share/socials-twitter.svg" width="15" height="14" alt="Twitter">
-              </a>
+              <a class="footer-social-link social-twitter" href="#"></a>
             </div>
           </div>
+
           <div class="html-academy-logo">
             <a class="html-academy-link" href="https://htmlacademy.ru/">
               <svg class="academy-svg" width="115" height="33" viewBox="0 0 115 33" fill="none" xmlns="http://www.w3.org/2000/svg">
