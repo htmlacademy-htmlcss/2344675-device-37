@@ -22,6 +22,10 @@
   font-display: swap;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -31,6 +35,7 @@ body {
   line-height: 30px;
   color: #000000;
   background-color: #ffffff;
+	min-height: 100%;
 }
 
 .visually-hidden {
@@ -46,9 +51,14 @@ body {
   overflow: hidden;
 }
 
-.header-wrapper { /* Чинит баг с разным положением белой полоски (псевдоэлемента) в разных браузерах. */
+.index-main,
+.catalog-main {
+  flex-grow: 1;
+}
+
+.header-wrapper { /* Чинит баг в Opera с неверным положением белой полоски (псевдоэлемента). */
   margin: 0 60px 0;
-  position: relative; /* Для корректного отображения outline (иначе его часть скрываеться под белой полоской-псевдоэлементом). */
+  position: relative;
 }
 
 .logo-wrapper:focus-visible {
@@ -89,7 +99,7 @@ body {
   opacity: 0.3;
 }
 
-.header-logo:focus-visible { /* Похоже, сломалось - перепроверить */
+.header-logo:focus-visible {
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
 }
@@ -126,6 +136,8 @@ body {
   background-color: #FFE17F;
   padding-left: 48px;
   padding-right: 16px;
+  color: #000000;
+
   font-size: 16px;
   line-height: 20px;
   background: url("../images/share/search.svg") 15px center no-repeat;
@@ -147,7 +159,7 @@ body {
   width: 160px;
   min-height: 40px;
   margin: 0;
-  padding: 8px 16px; /* 16px - как в строке поиска */
+  padding: 8px 16px;
   font-size: 16px;
   line-height: 20px;
   box-sizing:border-box;
@@ -171,6 +183,7 @@ body {
   outline: none;
 }
 
+.header-search-field:disabled,
 .search-button:disabled {
   opacity: 0.3;
 }
@@ -180,14 +193,14 @@ body {
   align-items: flex-start;
   flex-wrap: wrap;
   width: 170px;
-  margin-right: auto; /* При недополнении заглавий "Сравнение" и "Корзина" они прижимаются к правому краю. */
+  margin-right: auto;
 }
 
 .header-user,
 .header-compare,
 .header-basket {
   margin-top: 5px;  /* При переполнении имени пользователя удерживает эл-ты на том же расстоянии от верха хедера. */
-} /* TODO: проверить, как работает при новом переполнении имени пользователя (возможно, удалить селектор) */
+}
 
 .header-user:hover,
 .header-compare:hover,
@@ -213,12 +226,15 @@ body {
   padding-left: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+  display: inline-block;
 }
 
 .header-username::before {
   content: url("../images/share/human.svg");
-  margin-left: -26px;
-  margin-right: 13px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .header-username,
@@ -241,7 +257,7 @@ body {
   outline-offset: 2px;
 }
 
-.header-user:focus-within {
+.header-username:focus-visible {
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
 }
@@ -273,7 +289,8 @@ body {
 .header-basket::before {
   content:url("../images/share/basket.svg");
   margin-left: 18px;
-  /* С учетом большего padding всего эл-та, чтобы outline включал в себя счетчик. При пустой корзине (счетсик не виден) лучше делать эл-т неактивным, чтобы не было некрасивого outline вокруг пустого места. */
+  /* С учетом большего padding всего эл-та, чтобы outline включал в себя счетчик.
+     При пустой корзине (счетсик не виден) лучше делать эл-т неактивным, чтобы не было outline вокруг пустого места. */
   padding-right: 12px;
 }
 
@@ -420,7 +437,7 @@ body {
 /*  */
 
 .foldable-list {
- z-index: 1; /* Чтобы изображение .promo-photo не перекрывало собой часть ссылки. */
+ z-index: 1; /* Изображение .promo-photo не перекрывает собой часть ссылки. */
 }
 
 .foldable-list:hover .folddown-wrapper,
@@ -495,7 +512,7 @@ body {
 .popover {
   position: absolute;
   display: flex;
-  display: none; /* (!) временно, для отладки */
+  display: none; /* (!) Скрытие блока, раскомментировать для проверки всплывающей корзины. */
   flex-direction: column;
   width: 320px;
   left: -123px;
@@ -550,7 +567,7 @@ body {
   display: block;
   min-height: 50px;
   margin: 20px;
-  padding: 15px 20px 15px; /* Внутренние отступры приравнены к внешним. */
+  padding: 15px 20px 15px;
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
   font-weight: 800;
@@ -602,7 +619,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px; /* Увеличиваем область клика по закрытия, но не вполтную с ссылкой на товар, чтобы пользователь нечаянно не удалил его из корзины. */
+  padding: 10px;
   margin: 10px;
   display: flex;
   align-items: center;
@@ -638,14 +655,6 @@ body {
   text-align: right;
 }
 
-
-/* TODO: sticky footer */
-.index-main { /* для отладки всплывающего подменю и sticky footer */
-  display: block;
-  min-height: 1000px;
-}
-
-
 .page-footer {
   background-color: #444444;
 }
@@ -680,7 +689,7 @@ body {
 .footer-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 52px; /* 60px по макету - 8px padding под адресом и/или телефоном. */
+  margin-bottom: 52px; /* 60px по макету минус 8px padding под адресом и/или телефоном. */
 }
 
 .footer-addresses {
@@ -873,7 +882,6 @@ body {
 
 .main-slider {
   position: absolute;
-  /* min-height: 500px;  *//* TODO: 750px по стайлгайду; по PP будет другая высота, выверить. */
 }
 
 .slider-left,
@@ -885,6 +893,16 @@ body {
   background-color: transparent;
   z-index: 1;
   cursor: pointer;
+}
+
+.slider-left:hover,
+.slider-right:hover {
+  opacity: 0.7;
+}
+
+.slider-left:active,
+.slider-right:active {
+  opacity: 0.3;
 }
 
 .slider-left:focus-visible,
@@ -928,6 +946,32 @@ body {
   background-color: #000000;
 }
 
+.slider-bullet:hover,
+.bullet-filled:hover {
+  opacity: 0.7;
+}
+
+.slider-bullet:active,
+.bullet-filled:active {
+  opacity: 0.3;
+  outline: none;
+}
+
+.slider-bullet:focus-visible,
+.bullet-filled:focus-visible {
+  outline: none;
+}
+
+.bullet-wrapper {
+  width: 12px;
+  height: 12px;
+}
+
+.bullet-wrapper:focus-within {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 .promo-screens {
   list-style: none;
   margin: 0;
@@ -938,6 +982,7 @@ body {
 .promo {
   position: relative;
   display: grid;
+  display: none;
   grid-template-columns: 560px auto;
   list-style: none;
   margin: 0;
@@ -954,8 +999,8 @@ body {
   background-color: #FFE17F;
 }
 
-.promo-hidden {
-  display: none;
+.promo-visible {
+  display: grid;
 }
 
 .promo-number {
@@ -978,7 +1023,7 @@ body {
 .promo-photo {
   display: block;
   position: absolute;
-  top: -37px; /* (?) Похоже, это костыль; спросить. */
+  top: -37px;
 }
 
 .promo-info {
@@ -1004,11 +1049,13 @@ body {
 
 .btn-details {
   display: block;
-  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
   min-height: 40px;
+  padding: 10px;
   border: none;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: transparent;
   font-family: "Raleway", sans-serif;
   font-weight: 800;
   font-size: 18px;
@@ -1017,8 +1064,49 @@ body {
   letter-spacing: 0.2em;
   text-align: center;
   margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-/* TODO: желтая полоска в спокойном состоянии как п/эл-т. */
+
+.btn-details::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-details::after {
+  content:"";
+  background-color: #FFE17F;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 4px);
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+}
+
+.btn-details:hover {
+  background-color: #FFE17F;
+}
+
+.btn-details:active {
+  background-color: #FFCC33;
+}
+
+.btn-details:focus-visible {
+  outline: 2px solid #AF4FFF;
+}
+
+.btn-details:disabled {
+  opacity: 0.3;
+}
+
 
 .promo-specs {
   list-style: none;
@@ -1032,7 +1120,7 @@ body {
 .specs-value {
   margin-bottom: 12px;
   font-size: 36px;
-  line-height: 30px; /* (?) line-height меньше, чем font-size? */
+  line-height: 30px;
 }
 
 .specs-parameter {
@@ -1043,7 +1131,7 @@ body {
 .main-categories {
   width: 1160px;
   margin: 0 auto;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
 }
 
 .main-cat-list {
@@ -1068,9 +1156,13 @@ body {
 
 .main-cat-title {
   min-height: 60px;
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
 }
 
-.main-cat-item::before {
+.main-cat-title::before {
   content: "";
   width: 160px;
   height: 160px;
@@ -1079,21 +1171,40 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.main-cat-title:hover::before {
+  background-color: #FFC700;
+}
+
+.main-cat-title:active {
+  opacity: 0.3;
+}
+
+.main-cat-title:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 .cat-vr::before {
   background-image: url("../images/index/cat-vr.svg");
 }
+
 .cat-sticks::before {
   background-image: url("../images/index/cat-sticks.svg");
 }
+
 .cat-actincams::before {
   background-image: url("../images/index/cat-actioncams.svg");
 }
+
 .cat-bracelets::before {
   background-image: url("../images/index/cat-bracelets.svg");
 }
+
 .cat-watch::before {
   background-image: url("../images/index/cat-watch.svg");
 }
+
 .cat-copters::before {
   background-image: url("../images/index/cat-copters.svg");
 }
@@ -1101,25 +1212,27 @@ body {
 .main-services {
   background-color: #F0F0F0;
   margin-bottom: 70px;
+  position: relative;
 }
 
+.main-services::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 104px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
 .main-services-wrapper {
   width: 1160px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 287px auto;
-  padding-bottom: 70px;
+  padding-bottom: 72px; /* 70px по макету. */
   position: relative;
-}
-
-.main-services-wrapper::before {
-  position: absolute;
-  width: 1160px;
-  height: 104px;
-  top: 0;
-  left: 0;
-  color: lime;
-  z-index: 10;
+  z-index: 2;
 }
 
 .main-services-list {
@@ -1152,8 +1265,50 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
-  background-color: #FFE17F;
+  background-color: transparent;
   cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  color: #000000;
+}
+
+.services-list-item::after {
+  content:"";
+  background-color: #FFE17F;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 4px);
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+}
+
+.services-list-item:hover {
+  background-color: #FFE17F;
+}
+
+.services-list-item:hover {
+  background-color: #FFCC33;
+}
+
+.services-list-item:focus-visible {
+  outline: 2px solid #AF4FFF;
+}
+
+.services-list-item:disabled {
+  opacity: 0.3;
+}
+
+.services-item-active:hover,
+.services-item-active:active,
+.services-item-active:focus {
+  background-color: #000000;
+  padding-left: 35px;
+}
+
+.services-item-active:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
 }
 
 .services-item-active {
@@ -1179,14 +1334,13 @@ body {
 .services-screen {
   list-style: none;
   margin: 0;
-  padding: 72px 140px 72px 116px;
+  padding: 74px 140px 72px 116px;
   box-sizing: border-box;
   position: relative;
 }
 
 .service-description {
   width: 475px;
-/*   margin-bottom: 72px; */
 }
 
 .service-title {
@@ -1197,13 +1351,9 @@ body {
   font-size: 50px;
   line-height: 50px;
   margin-bottom: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-/* .service-delivery,
-.service-warranty,
-.service-credit {
-  position: relative;
-} */
 
 .service-delivery::after {
   position: absolute;
@@ -1227,27 +1377,18 @@ body {
 }
 
 .main-custom {
+  position: relative; /* для позиционирования .custom-tooltip. */
+}
+
+ .custom-link {
+  display: block;
   width: 1160px;
   min-height: 100px;
+  padding: 40px 160px 37px; /* 40px по макету. */
+  margin: 0 auto 70px;
+  box-sizing: border-box;
   background-color: #F0F0F0;
-  margin: 0 auto;
-  margin-bottom: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.custom-block {
-  display: block;
-}
-
-.custom-block:hover {
-  background-color: #AF4FFF;
-}
-
-.custom-text {
-  display: block;
+  color: #000000;
   font-family: "Raleway", sans-serif;
   font-size: 20px;
   font-weight: 800;
@@ -1257,48 +1398,618 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  padding-top: 38px;
-  padding-bottom: 38px;
-  max-width: 910px;
-}
+  position: relative;
+ }
 
-.custom-block:before {
+ .custom-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 125px;
+    height: 100%;
+    background-color: #FFE17F;
+    background-image: url("../images/index/deliverytruck.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    align-self: center;
+ }
+
+ .custom-link::after {
+    content: url("../images/index/i-gray.svg");
+    position: absolute;
+    top: calc(50% - 20px);
+    right: 42px;
+    width: 40px;
+    height: 40px;
+    padding-top: 9px;
+    box-sizing: border-box;
+    background-color: rgba(220, 220, 220, 0.5);
+    border-radius: 50%;
+    z-index: 2;
+ }
+
+ .custom-link:hover:before {
+  background-color: #FFC700;
+ }
+
+ .custom-link:active {
+  opacity: 0.3;
+ }
+
+ .custom-link:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+ }
+
+ .custom-tooltip {
+  display: block;
+  display: none;
+  position: absolute;
+  right: 140px;
+  top: 85px;
+  width: 166px;
+  color: #ffffff;
+  padding: 20px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+  background-color: #1A1A1A;
+  text-transform: none;
+  text-align: center;
+ }
+
+ .custom-tooltip::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 125px;
-  height: 100px;
-  background-color: #FFE17F;
-  background-image: url("../images/index/deliverytruck.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  align-self: center;
+  top: -8px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  background-color: inherit;
+  transform: rotate(45deg);
+ }
+
+/* (?) :hover на весь блок .custom-link воздействует на .custom-tooltip, а :hover::after - не воздействует.
+        Возможно ли отслеживать состояние отдельно псеводэлемента? */
+ .custom-link:hover::after + .custom-tooltip {
+  background-color: #AF4FFF; /* Для отладки. */
+  display: block;
+ }
+
+ .main-info {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1160px;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  position: relative;
 }
 
-/* .custom-text:after {
-  content: url("../images/index/i-gray.svg");
-  display: flex;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  background-color: rgba(220, 220, 220, 0.5);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-} */
+ .main-about {
+  display: block;
+  width: 600px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  margin-right: 30px;
+ }
 
-.custom-info {
-  display: flex;
+ .main-contacts {
+  display: block;
+  width: 530px;
+  padding-right: 10px;
+  box-sizing: border-box;
+ }
+
+.main-about::before,
+.main-contacts:before {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 7px;
+  background-color: #000000;
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 40px;
-  height: 40px;
+}
+
+.info-caption {
+  font-family: "Raleway", sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 50px;
+  margin-top: 47px;
+  margin-bottom: 48px;
+  max-width: 490px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-text {
+  margin-top: 0;
+  margin-bottom: 30px;
+  width: 500px;
+}
+
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 30px;
+}
+
+.info-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 37.5px;
+  padding-bottom: 19px;
+  max-width: 500px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.info-item:last-child {
+  padding-bottom: 0;
+}
+
+.info-item::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #FFC700;
   border-radius: 50%;
-  background: rgba(220, 220, 220, 0.5);
-  align-items: center;
-  justify-content: center;
-  margin: 30px 42px;
+  position: absolute;
+  top: 6px;
+  left: 4px;
+}
+
+.btn-info {
+  width: max-content;
+  max-width: 300px;
+  padding-left: 23px;
+  padding-right: 23px;
+  margin-bottom: 0;
+}
+
+.info-coords {
+  margin-top: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 530px;
+  margin-bottom: 15px;
+}
+
+.info-address {
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 30px;
+  font-style: normal;
+  margin-bottom: 0;
+}
+
+.info-tel {
+  display: block;
+  color: #000000;
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+
+.info-workhours {
+  max-width: 520px;
+  margin-bottom: 30px;
+}
+
+.main-subscribe {
+  background-color: #F0F0F0;
+}
+
+.subscribe-wrapper {
+  width: 1160px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.subscribe-text-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 64px;
+  margin-bottom: 144px;
+}
+
+.subscribe-caption {
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 50px;
+  max-width: 400px;
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subscribe-text {
+  width: 530px;
+  max-width: 530px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 8px;
+}
+
+.subscribe-field-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.subscribe-field {
+  width: 557px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 3px solid #C4C4C4;
+  background-color: #F0F0F0;
+  padding-left: 16px;
+  padding-right: 17px;
+  padding-top: 11px;
+  padding-bottom: 14px;
+  color: rgba(68, 68, 68, 1);
+  font-size: 18px;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subscribe-field::placeholder {
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.subscribe-field:focus,
+.subscribe-field:focus-visible {
+  background-color: #DCDCDC;
+  outline: none;
+}
+
+.subscribe-field:disabled {
+  opacity: 0.3;
+}
+
+.subscribe-field:invalid {
+  border-bottom: 3px solid #FF3D3D;
+}
+
+/* (?) Без этого правила не убирается состояние Linvalid, когда поле пустое. Может быть, есть другой способ?*/
+.subscribe-field:empty {
+  border-bottom: 3px solid #C4C4C4;
+}
+
+.subscribe-button {
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  min-height: 50px;
+  padding: 15px;
+  min-width: 253px;
+  max-width: 300px;
+  margin-right: auto;
+  background-color: #F0F0F0;
+  border: 3px solid #C4C4C4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subscribe-button:hover {
+  color: #ffffff;
+  background-color: #000000;
+  border: 3px solid #000000;
+}
+
+.subscribe-button:active {
+  color: rgba(255, 255, 255, 0.3);
+  background-color: #000000;
+  border: 3px solid #000000;
+}
+
+.subscribe-button:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+
+.subscribe-free {
+  align-self: center;
+  max-width: 150px;
+}
+
+.subscribe-free::before {
+  content: url("../images/index/tick-green.svg");
+  padding-right: 16px;
+}
+
+/* Страница catalog */
+
+.catalog-head {
+  width: 1160px;
+  margin: 0 auto;
+  padding:35px 60px 25px;
+  box-sizing: border-box;
+}
+
+.catalog-title {
+  margin: -1px 0 13px 0; /* Для попадания в PP. */
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 55px;
+  max-width: 900px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  margin-right: 32px; /* Чтобы отделить список от (возможного) следующего блока в строке. */
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.breadcrumb-item {
+  position: relative;
+  margin-right: 16px;
+}
+
+.breadcrumb-item:first-child {
+  margin-left: 0;
+}
+
+.breadcrumb {
+  display: inline-block;
+  max-width: 500px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 20px;
+  position: relative;
+  top: -2px; /* Для попадания в PP. */
+}
+
+.breadcrumb-item::after {
+  content: url(../images/catalog/breadcrumb-arrow.svg);
+  position: absolute;
+  margin-right: 13px;
+  opacity: 0.3;
+  right: -15px;
+  top: -7px;
+}
+
+.breadcrumb-item:last-child:after {
+  content: "";
+  margin-right: 0;
+}
+
+.catalog-content {
+  background-color: #F0F0F0;
+}
+
+.catalog-wrapper {
+  display: grid;
+  grid-template-columns: 320px auto;
+  width: 1160px;
+  margin: 0 auto;
+}
+
+.catalog-filters {
+    border: 1px solid red;
+    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0 60px;
+
+}
+
+.content-caption {
+  min-height: 70px;
+  padding: 22px 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 19px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.filter-caption {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+                    color: red;
+  border: none;
+  padding: 0;
+  margin-bottom: 19px;
+}
+
+.catalog-form {
+
+}
+
+.fieldset-wrapper {
+  width: 200px;
+                  border: 1px solid blue;
+  box-sizing: border-box;
+  border-top: 2px solid #000;
+  padding-top: 0;
+  margin-top: 29px;
+}
+
+.fiter-ranges,
+.filter-color,
+.filter-bt {
+
+}
+
+
+.form-slider {
+                  min-height: 102px;
+}
+
+.fiter-ranges,
+.filter-color,
+.filter-bt {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.catalog-checkboxes,
+.catalog-radios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.catalog-checkbox,
+.catalog-radio {
+  width: 200px;
+  margin-bottom: 17px;
+}
+
+.catalog-checkbox:last-child,
+.catalog-radio:last-child {
+  margin-bottom: 0;
+}
+
+.wrapper-bt {
+  margin-top: 35px;
+}
+
+.catalog-control {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+}
+
+.control-label {
+  font-size: 16px;
+  line-height: 20px;
+  width: 155px;
+}
+
+.control-input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.control-input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-bottom: 3px;
+}
+
+
+.btn-catalog {
+  display: block;
+  min-width: 220px;
+  max-width: 220px;
+  min-height: 40px;
+  padding: 10px;
+  border: none;
+  box-sizing: border-box;
+  background-color: #F0F0F0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 2;
+  margin-top: 30px;
+  margin-bottom: 35px;
+}
+
+.btn-catalog::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #F0F0F0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-catalog::after {
+  content:"";
+  background-color: #FFE17F;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 4px);
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+}
+
+.btn-catalog:hover {
+  background-color: #FFE17F;
+  z-index: auto;
+}
+
+.btn-catalog:active {
+  background-color: #FFCC33;
+  z-index: auto;
+}
+
+.btn-catalog:focus-visible {
+  outline: 2px solid #AF4FFF;
+}
+
+.btn-catalog:disabled {
+  opacity: 0.3;
+  z-index: auto;
 }
