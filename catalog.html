@@ -138,7 +138,8 @@
         <div class="catalog-content">
           <div class="catalog-wrapper">
             <section class="catalog-filters">
-               <div class="content-caption">Фильтр:</div>
+              <h2 class="visually-hidden">Поиск по параметрам.</h2>
+               <div class="filters-caption">Фильтр:</div>
               <form class="catalog-form" action="https://echo.htmlacademy.ru/" method="get">
                 <div class="fieldset-wrapper form-slider">
                   <legend class="filter-caption">Стоимость</legend>
@@ -203,12 +204,98 @@
               </form>
             </section>
             <section class="catalog-goods">
+              <h2 class="visually-hidden">Найденные товары</h2>
               <div class="catalog-sorting">
-                <div class="content-caption">Сортировка:</div>
+                <div class="sorting-head">
+                  <div class="sorting-caption">Сортировка:</div>
+                  <select class="select-control" aria-label="Сортировка">
+                    <option value="by-popular" selected="selected">Популярные</option>
+                    <option value="by-new">Новинки</option>
+                    <option value="by-cheap">Подешевле</option>
+                    <option value="by-cheap">Подороже</option>
+                  </select>
+                  <div class="sorting-order">
+                    <button class="sorting-button" type="submit">
+                      <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 0L11.5 10H0.5" fill="black"/>
+                      </svg>
+                    </button>
+                    <button class="sorting-button" type="submit">
+                      <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 10L0.499999 9.61651e-07L11.5 0" fill="black"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="catalog-cards">
+
+
+                <ul class="cards-list">
+                  <li class="card">
+                    <a class="card-link">
+                      <img class="card-photo" src="images/catalog/goods-stick-amateur.jpg" width="360" height="380" alt="Любительская селфи-палка">
+                      <div class="card-details">
+                        <div class="card-title">Любительская селфи&#8209;палка</div>
+                        <div class="card-price">500&nbsp;₽</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="card">
+                    <a class="card-link">
+                      <img class="card-photo" src="images/catalog/goods-stick-pro.jpg" width="360" height="380" alt="Профессиональная селфи-палка">
+                      <div class="card-details">
+                        <div class="card-title">Профессиональная селфи&#8209;палка</div>
+                        <div class="card-price">1&nbsp;500&nbsp;₽</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="card">
+                    <a class="card-link">
+                      <img class="card-photo" src="images/catalog/goods-stick-waterproof.jpg" width="360" height="380" alt="Непотопляемая селфи-палка">
+                      <div class="card-details">
+                        <div class="card-title">Непотопляемая селфи&#8209;палка</div>
+                        <div class="card-price">2&nbsp;500&nbsp;₽</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="card">
+                    <a class="card-link">
+                      <img class="card-photo" src="images/catalog/goods-stick-followme.jpg" width="360" height="380" alt="Селфи-палка «Следуй за мной»">
+                      <div class="card-details">
+                        <div class="card-title">Селфи&#8209;палка «Следуй за&nbsp;мной»</div>
+                        <div class="card-price">1&nbsp;500&nbsp;₽</div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+
+
+              <div class="catalog-pages">
+
+                <button class="btn-loadmore" type="submit">Загрузить ещё</button>
+
+                <div class="catalog-pagination">
+                  <button class="pagination-edge" type="submit" method="get" disabled>Назад</button>
+                  <ul class="pagination-numbers">
+                    <li class="pagination-number pagination-current">
+                      <a class="pagination-link" href="#">1</a>
+                    </li>
+                    <li class="pagination-number">
+                      <a class="pagination-link" href="#">2</a>
+                    </li>
+                    <li class="pagination-number">
+                      <a class="pagination-link" href="#">3</a>
+                    </li>
+                    <li class="pagination-number">
+                      <a class="pagination-link" href="#">...</a>
+                    </li>
+                    <li class="pagination-number">
+                      <a class="pagination-link" href="#">15</a>
+                    </li>
+                  </ul>
+                  <button class="pagination-edge" type="submit" method="get">Вперёд</button>
+                </div>
               </div>
-              <div class="catalog-pagination"></div>
             </section>
           </div>
         </div>

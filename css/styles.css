@@ -1831,7 +1831,7 @@ body {
 
 }
 
-.content-caption {
+.filters-caption {
   min-height: 70px;
   padding: 22px 0;
   box-sizing: border-box;
@@ -1852,19 +1852,13 @@ body {
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
-                    color: red;
   border: none;
   padding: 0;
   margin-bottom: 19px;
 }
 
-.catalog-form {
-
-}
-
 .fieldset-wrapper {
   width: 200px;
-                  border: 1px solid blue;
   box-sizing: border-box;
   border-top: 2px solid #000;
   padding-top: 0;
@@ -2012,4 +2006,176 @@ body {
 .btn-catalog:disabled {
   opacity: 0.3;
   z-index: auto;
+}
+
+.sorting-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 40px;
+  padding-top: 19px;
+  box-sizing: border-box;
+}
+
+.sorting-caption {
+  margin-top: 5px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+}
+
+.select-control {
+  min-width: 140px;
+  max-width: 200px;
+  font-size: 18px;
+  line-height: 30px;
+  border: none;
+  padding: 0;
+  background-color: #F0F0F0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sorting-button {
+  padding: 6.5px 7px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background-color: #F0F0F0;
+}
+
+.sorting-order {
+  width: 60px;
+  height: 30px;
+}
+
+/* Аналог sticky footer в блоке выдачи карточек */
+.catalog-goods {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  gap: 44px 40px;
+  margin: 0;
+  padding: 70px 40px 42px;
+  background-color: #ffffff;
+}
+
+.card-photo {
+  margin-bottom: 24px;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-title {
+  max-width: 240px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-price {
+  font-size: 18px;
+  line-height: 21px;
+  max-width: 100px;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catalog-pages {
+  background-color: #ffffff;
+}
+
+.btn-loadmore {
+  width: calc(100% - 2 * 40px);
+  min-height: 55px;
+  margin: 0 40px 44px;
+  padding: 16px;
+  border: 3px solid #E5E5E5;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 19px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catalog-pagination {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 2 * 40px);
+  margin: 0 40px 78px;
+  background-color: #EBEBEB;
+}
+
+.pagination-edge {
+  min-width: 50px;
+  padding: 25px;
+  border: 0;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 21px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.pagination-edge:disabled {
+  color: rgba(68, 68, 68, 0.3);
+}
+
+.pagination-numbers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pagination-number {
+  color: rgba(68, 68, 68, 0.3);
+  min-height: 40px;
+  min-width: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+  justify-self: center;
+  align-self: center;
+}
+
+.pagination-current {
+  color: #444444;
+}
+
+.pagination-link {
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
 }
