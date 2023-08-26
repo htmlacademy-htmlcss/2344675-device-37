@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- Модальное окно, строка 345. -->
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <title>HTML Academy: Девайс | Главная</title>
+    <title>HTML Academy: Девайс | Главная > Доставка под заказ</title>
     <link href="css/styles.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon16.png">
@@ -341,7 +341,7 @@
         </div>
       </div>
     </section>
-    </main>
+  </main>
 
     <footer class="page-footer">
       <div class="footer-wrapper">
@@ -407,6 +407,66 @@
         </div>
       </div>
     </footer>
+
+    <div class="modal-wrapper">
+      <div class="modal-form">
+        <div class="modal-line">
+          <div class="modal-title">Доставка под заказ</div>
+          <button class="modal-close">
+            <img class="modal-close" src="images/modal/modal-close.svg">
+          </button>
+        </div>
+
+        <div class="modal-line">
+          <div class="modal-field">
+            <label class="modal-label" for="modal-clientname">Ваше имя:</label>
+            <input class="modal-input input-clientname" type="text" id="modal-clientname" name="modal-clientname" placeholder="Введите имя">
+            <span class="modal-comment"></span>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label" for="modal-email">Ваш e-mail:</label>
+            <input class="modal-input input-email" type="email" id="modal-email" name="modal-email" placeholder="почта" value="почта">
+            <span class="modal-comment">Забавный у вас адрес</span>
+          </div>
+        </div>
+
+        <div class="modal-line">
+          <div class="modal-field">
+            <label class="modal-label" for="modal-goods">Что нужно привезти:</label>
+            <input class="modal-input input-goods" type="text" id="modal-goods" name="modal-goods" placeholder="В свободной форме">
+          </div>
+          <div class="modal-amount">
+            <label class="modal-label label-amount" for="modal-amount">Количество:</label>
+            <div class="amount-info">
+              <img src="images/modal/modal-i.svg">
+              <div class="modal-tooltip">Постараемся найти, сколько нужно. Привезём сколько получится по требованиям к&nbsp;провозу багажа.</div>
+            </div>
+            <div class="modal-counter">
+              <button class="modal-less">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 7H0V9H16V7Z" fill="black"/>
+                </svg>
+              </button>
+              <input class="modal-input input-amount" type="text" id="modal-amount" value="1">
+              <button class="modal-more">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_40922_665)">
+                  <path d="M16 7H9V0H7V7H0V9H7V16H9V9H16V7Z" fill="black"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_40922_665">
+                  <rect width="16" height="16" fill="white"/>
+                  </clipPath>
+                  </defs>
+                  </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-modal">Отправить</button>
+      </div>
+    </div>
 
   </body>
 </html>

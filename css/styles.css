@@ -36,6 +36,7 @@ body {
   color: #000000;
   background-color: #ffffff;
 	min-height: 100%;
+  position: relative;
 }
 
 .visually-hidden {
@@ -284,6 +285,7 @@ body {
   color: #000000;
   text-decoration: none;
   position: relative;
+  padding-bottom: 5px; /* Не дает прерываться состоянию :hover, пока пользователь переводит курсор на .popover. */
 }
 
 .header-basket::before {
@@ -418,26 +420,23 @@ body {
   opacity: 1;
 }
 
-/* .foldable:hover .folddown-wrapper,
-.foldable:focus-within .folddown-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-} */
-
 .foldable:hover .header-foldbutton {
   background-image: url("../images/share/button-minus.svg");
   opacity: 1;
 }
 
-/*  */ /* (?) Применение backgroung-image ко второй части селектора ЕСЛИ есть hover на первую часть селектора. */
+.foldable:focus-visible.foldable::after {
+  background-image: url("../images/share/button-minus.svg");
+}
+
+/* (?) Применение backgroung-image к .foldable:after, КОГДА есть hover на .folddown-wrapper. */
 .folddown-wrapper:hover .foldable::after {
   background-image: url("../images/share/button-minus.svg");
   opacity: 1;
 }
-/*  */
 
 .foldable-list {
- z-index: 1; /* Изображение .promo-photo не перекрывает собой часть ссылки. */
+ z-index: 1; /* Изображение .promo-photo не перекрывает собой часть блока. */
 }
 
 .foldable-list:hover .folddown-wrapper,
@@ -512,11 +511,11 @@ body {
 .popover {
   position: absolute;
   display: flex;
-  display: none; /* (!) Скрытие блока, раскомментировать для проверки всплывающей корзины. */
+  display: none; /* (!) Сокрытие блока, раскомментировать для проверки всплывающей корзины. */
   flex-direction: column;
   width: 320px;
   left: -123px;
-  top: 41px; /* TODO: возможны проблемы при увеличении высоты блока header-basket, проверить */
+  top: 41px;
   background-color: #000000;
   color: #ffffff;
   z-index: 2; /* Перекрывает собой даже открытое подменю шапки. */
@@ -533,6 +532,12 @@ body {
   background-color: #000000;
   transform: rotate(45deg);
 }
+
+.basket-wrapper:hover .popover {
+display: flex;
+}
+
+
 
 .popover-list {
   list-style: none;
@@ -556,6 +561,14 @@ body {
   color: #ffffff;
   text-decoration: none;
   box-sizing: border-box;
+}
+
+.popover-link:hover {
+  opacity: 0.7;
+}
+
+.popover-link:active {
+  opacity: 0.3;
 }
 
 .popover-link:focus-visible {
@@ -628,6 +641,14 @@ body {
   border: none;
 }
 
+.basket-remove:hover {
+  opacity: 0.7;
+}
+
+.basket-remove:active {
+  opacity: 0.3;
+}
+
 .basket-remove:focus-visible {
   outline: 2px solid #AF4FFF;
   outline-offset: -9px;
@@ -673,7 +694,7 @@ body {
 }
 
 .footer-logo-wrapper:hover {
-  opacity: 0.7; /* В стайлгайде эл-т на светлом фоне, в верстке – на темном, итоговый цвет не совсем ясен. Сделано единообразно с остальными эл-ми футера. */
+  opacity: 0.7; /* В стайлгайде эл-т на светлом фоне, в верстке – на темном. Сделано единообразно с остальными эл-ми футера. */
 }
 
 .footer-logo-wrapper:active {
@@ -689,7 +710,7 @@ body {
 .footer-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 52px; /* 60px по макету минус 8px padding под адресом и/или телефоном. */
+  margin-bottom: 40px;
 }
 
 .footer-addresses {
@@ -711,6 +732,8 @@ body {
   align-content: flex-start;
   gap: 18px 35px;
   max-width: 500px;
+  margin-top: 5px;
+
 }
 
 .footer-page {
@@ -756,6 +779,7 @@ body {
   color: #ffffff;
   font-size: 16px;
   line-height: 20px;
+  margin-top: 7px;
 }
 
 .footer-tel:hover {
@@ -775,19 +799,17 @@ body {
   display: flex;
   justify-content: center;
   padding-left: 250px;
+  position: relative;
 }
 
-.footer-corner {
-  display: flex;
-  align-items: center;
-  width: 250px;
-}
-
-.footer-line {
-  display: block;
+.footer-links::before {
+  content:"";
   width: 80px;
   height: 7px;
   background-color: #FFC700;
+  position: absolute;
+  left: 0;
+  top: 16px;
 }
 
 .footer-socials {
@@ -851,6 +873,7 @@ body {
 .html-academy-logo {
   width: 250px;
   text-align: right;
+  margin-top: 1.5px; /* Для попадания в PP. */
 }
 
 .html-academy-link {
@@ -1287,7 +1310,7 @@ body {
   background-color: #FFE17F;
 }
 
-.services-list-item:hover {
+.services-list-item:active {
   background-color: #FFCC33;
 }
 
@@ -1474,9 +1497,8 @@ body {
  }
 
 /* (?) :hover на весь блок .custom-link воздействует на .custom-tooltip, а :hover::after - не воздействует.
-        Возможно ли отслеживать состояние отдельно псеводэлемента? */
- .custom-link:hover::after + .custom-tooltip {
-  background-color: #AF4FFF; /* Для отладки. */
+        Возможно ли отслеживать :hover именно псеводэлемента? */
+ .custom-link:hover ~ .custom-tooltip {
   display: block;
  }
 
@@ -1601,10 +1623,16 @@ body {
 .info-tel {
   display: block;
   color: #000000;
+  width: max-content;
   max-width: 520px;
   font-size: 18px;
   line-height: 30px;
   margin-bottom: 30px;
+}
+
+.info-tel:focus-visible { /* Нет в стайлгайде */
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
 }
 
 .info-workhours {
@@ -1626,7 +1654,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   padding-top: 64px;
-  margin-bottom: 144px;
+  margin-bottom: 143px;
 }
 
 .subscribe-caption {
@@ -1647,7 +1675,7 @@ body {
   max-width: 530px;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-top: 8px;
+  padding-top: 10px;
 }
 
 .subscribe-field-wrapper {
@@ -1663,8 +1691,8 @@ body {
   background-color: #F0F0F0;
   padding-left: 16px;
   padding-right: 17px;
-  padding-top: 11px;
-  padding-bottom: 14px;
+  padding-top: 13px;
+  padding-bottom: 12px;
   color: rgba(68, 68, 68, 1);
   font-size: 18px;
   line-height: 30px;
@@ -1691,7 +1719,8 @@ body {
   border-bottom: 3px solid #FF3D3D;
 }
 
-/* (?) Без этого правила не убирается состояние Linvalid, когда поле пустое. Может быть, есть другой способ?*/
+/* (?) Без этого правила не убирается состояние Linvalid, когда поле пустое. Может быть, есть другой способ?
+       Например, стилизовать, когда у поля одновременно состояния :not(:empty) и :invalid. */
 .subscribe-field:empty {
   border-bottom: 3px solid #C4C4C4;
 }
@@ -1735,7 +1764,7 @@ body {
 
 .subscribe-free {
   align-self: center;
-  max-width: 150px;
+  max-width: 300px;
 }
 
 .subscribe-free::before {
@@ -1836,8 +1865,6 @@ body {
 }
 
 .catalog-filters {
-    border: 1px solid red;
-    box-sizing: border-box;
   display: flex;
   flex-direction: column;
   padding: 0 60px;
@@ -1878,16 +1905,141 @@ body {
   margin-top: 29px;
 }
 
-.fiter-ranges,
-.filter-color,
-.filter-bt {
-
-}
 
 
 .form-slider {
-                  min-height: 102px;
+  min-height: 103px;
 }
+
+.filter-range {
+  position: relative;
+}
+
+.range-top {
+  position: absolute;
+  margin-top: 10px;
+  width: 60%;
+  border-top: 2px solid #000000;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.range-bottom {
+  position: absolute;
+  margin-top: 10px;
+  width: 100%;
+  border-top: 2px solid #DCDCDC;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+.range-left,
+.range-right {
+  position:absolute;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  background-color: #EBEBEB;
+  top: 2px;
+}
+
+.range-left {
+  left: -8px;
+  z-index: 2;
+}
+
+.range-right {
+  left: 110px;
+  z-index: 3;
+}
+
+.range-left:hover,
+.range-right:hover {
+  border: 2px solid #7f7f7f;
+}
+
+.range-left:active,
+.range-right:active {
+  border: 2px solid #000000;
+  background-color: #000000;
+}
+
+.range-left::before,
+.range-right::before {
+  content: "";
+  display: block;
+  display: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #AF4FFF;
+  box-sizing: border-box;
+  position: absolute;
+  top: -4.5px;
+  left: -4.5px;
+}
+
+.range-left:focus-visible,
+.range-right:focus-visible {
+  outline: none;
+}
+
+/* (?) Не заработало. Вместо этого реализовал отдельным блоком, а не псевдоэлементом.*/
+/* .range-left:hover .range-left::before {
+  display: block;
+} */
+
+
+.range-outline {
+  display: block;
+  display: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #AF4FFF;
+  box-sizing: border-box;
+  position: absolute;
+  top: -4.5px;
+  left: -4.5px;
+}
+
+.range-right:focus-visible .range-outline,
+.range-left:focus-visible .range-outline {
+  display: block;
+}
+
+
+.range-from,
+.range-to {
+  position: absolute;
+  top: 20px;
+  transform: translateX(-50%);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.range-from {
+  z-index: 4;
+  background-color: #F0F0F0;
+}
+
+.range-to {
+  z-index: 5; /* Чтобы надписи не наслаивались друг на друга. */
+  background-color: #F0F0F0;
+}
+
+.range-from:focus-visible,
+.range-to:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
 
 .fiter-ranges,
 .filter-color,
@@ -1996,10 +2148,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-
-
-
-
 
 
 .btn-catalog {
@@ -2181,7 +2329,86 @@ body {
 
 .card-link {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  color: #000000;
+  text-decoration: none;
+  position: relative;
 }
+
+.card-link:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+
+.card-cover {
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 0.5;
+  width: 100%;
+  height: 380px;
+  opacity: 0;
+  z-index: 10;
+}
+
+
+.btn-cardcover {
+  display: block;
+  min-width: 220px;
+  max-width: 220px;
+  min-height: 40px;
+  padding: 10px;
+  border: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 1;
+  position: absolute;
+  left: calc(50% - 110px);
+  top: calc(190px - 20px);
+  opacity: 0;
+}
+
+.btn-cardcover::after {
+  content:"";
+  background-color: #FFE17F;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 4px);
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+}
+
+/* .btn-cardcover:hover:after {
+  background-color: #FFE17F;
+}
+ */
+.card-link:hover .card-cover {
+  opacity: 0.5;
+}
+
+.card-cover:hover ~ .btn-cardcover {
+  opacity: 10;
+  z-index: 10;
+}
+
+.card-cover:active ~ .btn-cardcover:after {
+  opacity: 1;
+  background-color: #FFC700;
+}
+
 
 .card-new:after {
   content:"New";
@@ -2205,7 +2432,7 @@ body {
 }
 
 .card-photo {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .card-details {
@@ -2231,6 +2458,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .catalog-pages {
   background-color: #ffffff;
@@ -2363,4 +2591,320 @@ body {
 
 .pagination-current {
   color: rgba(68, 68, 68, 0.7);
+}
+
+
+/* Модальное окно */
+
+.modal-wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 40;
+  position: absolute;
+}
+
+.modal-form {
+  width: 920px;
+  min-height: 568px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  opacity: 1;
+  border: 10px solid #000000;
+  box-sizing: border-box;
+  padding: 72px 80px;
+  position: fixed;
+  top: calc(calc(100vh / 2) - 284px); /* Половина вьюпорта минус половина высоты формы. */
+  left: calc(50% - 460px); /* Половина ширины окна минус половина ширины формы. */
+}
+
+.modal-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 42px;
+}
+
+.modal-title {
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 50px;
+}
+
+.modal-close {
+  border: none;
+  background-color: transparent;
+}
+
+.modal-close:hover {
+  opacity: 0.7;
+}
+
+.modal-close:active {
+  opacity: 0.3;
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-label {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: -0.36px;
+  margin-bottom: 14px;
+}
+
+.modal-input {
+  width: 360px;
+  max-width: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #F0F0F0;
+}
+
+.modal-input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-input:hover {
+  background-color: #B3B3B3;
+}
+
+.modal-input:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.modal-input:invalid {
+  outline: 2px solid #FF3D3D;
+}
+
+.modal-input:invalid + .modal-comment {
+  color: #FF3D3D;
+}
+
+.modal-input:disabled {
+  opacity: 0.1;
+}
+
+/* .modal-invalid для всех полей, на случай некорректного ввода, описан ниже. */
+
+.modal-comment {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.input-clientname,
+.input-email {
+  padding-right: 50px;
+  position: relative;
+}
+
+.input-clientname {
+  background-image: url(../images/modal/modal-clientname.svg);
+  background-position: center right 20px;
+  background-repeat: no-repeat;
+}
+
+.input-email {
+  background-image: url(../images/modal/modal-mail.svg);
+  background-position: center right 20px;
+  background-repeat: no-repeat;
+}
+
+.input-goods {
+  width: 540px;
+  max-width: 540px;
+}
+
+.modal-counter {
+  display: flex;
+  margin-top: 5px;
+}
+
+.modal-invalid { /* Дополнительный класс при некорректном вводе, для всех полей. */
+  outline:2px solid #FF3D3D;
+}
+
+.label-amount {
+  padding-right: 8px;
+  max-width: 160px;
+}
+
+.amount-info {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-color: #FFE17F;
+  border-radius: 50%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-tooltip {
+  display: block;
+  display: none;
+  position: absolute;
+  right: -35px;
+  top: 40px;
+  width: 166px;
+  color: #ffffff;
+  padding: 20px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+  background-color: #1A1A1A;
+  text-transform: none;
+  text-align: center;
+  z-index: 10;
+ }
+
+ .modal-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 40px;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  background-color: inherit;
+  transform: rotate(45deg);
+  z-index: 9;
+ }
+
+ .amount-info:hover .modal-tooltip {
+  display: block;
+ }
+
+.input-amount {
+  width: 60px;
+  max-width: 60px;
+}
+
+.modal-less,
+.modal-more {
+  width: 60px;
+  max-width: 60px;
+  border: none;
+  background-color: #F0F0F0;
+  z-index: 1;
+}
+
+.modal-less:hover,
+.modal-more:hover {
+  background-color: #EBEBEB;
+}
+
+.modal-less:hover svg path,
+.modal-more:hover svg path{
+  fill: rgba(0, 0, 0, 0.7);
+}
+
+.modal-less:active,
+.modal-more:active {
+  background-color: #F0F0F0;
+}
+
+.modal-less:active svg path,
+.modal-more:active svg path{
+  fill: rgba(0, 0, 0, 0.3);
+}
+
+.modal-less:focus-visible,
+.modal-more:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.modal-less:disabled,
+.modal-more:disabled {
+  opacity: 0.1;
+}
+
+.input-amount {
+  color: #000000;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+}
+
+.input-amount:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+  z-index: 2;
+}
+
+.btn-modal {
+  display: block;
+  min-width: 190px;
+  max-width: 190px;
+  min-height: 40px;
+  padding: 10px;
+  border: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-modal::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-modal::after {
+  content:"";
+  background-color: #FFE17F;
+  position: absolute;
+  left: 0;
+  top: calc(50% - 4px);
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+}
+
+.btn-modal:hover {
+  background-color: #FFE17F;
+}
+
+.btn-modal:active {
+  background-color: #FFCC33;
+}
+
+.btn-modal:focus-visible {
+  outline: 2px solid #AF4FFF;
+}
+
+.btn-modal:disabled {
+  opacity: 0.3;
 }

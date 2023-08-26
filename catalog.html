@@ -143,7 +143,26 @@
               <form class="catalog-form" action="https://echo.htmlacademy.ru/" method="get">
                 <div class="fieldset-wrapper form-slider">
                   <legend class="filter-caption">Стоимость</legend>
-                  <!-- TODO: слайдер -->
+
+                  <div class="filter-range">
+                  <!--
+                  range-top, range-botton - ось слайдера: "сверху" (от ползунка до ползунка) и "снизу" (на всю ширину)
+                  range-left, range-right - ползунки
+                  range-from, range-to    - подписи под ползунками
+                  range-outline           - обводка вокруг ползунка при :focus-visible
+                  -->
+                     <div class="range-top"></div>
+                     <div class="range-bottom"></div>
+                     <button class="range-left">
+                       <a class="range-from" href="#price-from">От&nbsp;0</a>
+                       <div class="range-outline"></div>
+                     </button>
+                     <button class="range-right">
+                       <a class="range-to" href="#price-to">До&nbsp;5000</a>
+                       <div class="range-outline"></div>
+                     </button>
+                  </div>
+
                 </div>
                 <div class="fieldset-wrapper">
                   <fieldset class="filter-color">
@@ -232,43 +251,50 @@
 
                 <ul class="cards-list">
                   <li class="card">
-                    <a class="card-link">
+                    <a class="card-link" href="#">
                       <img class="card-photo" src="images/catalog/goods-stick-amateur.jpg" width="360" height="380" alt="Любительская селфи-палка">
                       <div class="card-details">
                         <div class="card-title">Любительская селфи&#8209;палка</div>
                         <div class="card-price">500&nbsp;₽</div>
                       </div>
+                      <div class="card-cover"></div>
+                      <button class="btn-cardcover" type="button">Подробнее</button>
                     </a>
                   </li>
                   <li class="card">
-                    <a class="card-link card-new">
+                    <a class="card-link card-new" href="#">
                       <img class="card-photo" src="images/catalog/goods-stick-pro.jpg" width="360" height="380" alt="Профессиональная селфи-палка">
                       <div class="card-details">
                         <div class="card-title">Профессиональная селфи&#8209;палка</div>
                         <div class="card-price">1&nbsp;500&nbsp;₽</div>
                       </div>
+                      <div class="card-cover"></div>
+                      <button class="btn-cardcover" type="button">Подробнее</button>
                     </a>
                   </li>
                   <li class="card">
-                    <a class="card-link">
+                    <a class="card-link" href="#">
                       <img class="card-photo" src="images/catalog/goods-stick-waterproof.jpg" width="360" height="380" alt="Непотопляемая селфи-палка">
                       <div class="card-details">
                         <div class="card-title">Непотопляемая селфи&#8209;палка</div>
                         <div class="card-price">2&nbsp;500&nbsp;₽</div>
                       </div>
+                      <div class="card-cover"></div>
+                      <button class="btn-cardcover" type="button">Подробнее</button>
                     </a>
                   </li>
                   <li class="card">
-                    <a class="card-link">
+                    <a class="card-link" href="#">
                       <img class="card-photo" src="images/catalog/goods-stick-followme.jpg" width="360" height="380" alt="Селфи-палка «Следуй за мной»">
                       <div class="card-details">
                         <div class="card-title">Селфи&#8209;палка «Следуй за&nbsp;мной»</div>
                         <div class="card-price">1&nbsp;500&nbsp;₽</div>
                       </div>
+                      <div class="card-cover"></div>
+                      <button class="btn-cardcover" type="button">Подробнее</button>
                     </a>
                   </li>
                 </ul>
-
 
               <div class="catalog-pages">
 
