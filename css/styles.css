@@ -1401,13 +1401,20 @@ display: flex;
 
 .main-custom {
   position: relative; /* для позиционирования .custom-tooltip. */
+  width: 1160px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.main-custom {
+  display: flex;
 }
 
  .custom-link {
   display: block;
-  width: 1160px;
+  width: 1035px;
   min-height: 100px;
-  padding: 40px 160px 37px; /* 40px по макету. */
+  padding: 40px 32px 37px 160px;
   margin: 0 auto 70px;
   box-sizing: border-box;
   background-color: #F0F0F0;
@@ -1422,6 +1429,7 @@ display: flex;
   text-decoration: none;
   cursor: pointer;
   position: relative;
+  z-index: 1;
  }
 
  .custom-link::before {
@@ -1438,8 +1446,30 @@ display: flex;
     align-self: center;
  }
 
- .custom-link::after {
-    content: url("../images/index/i-gray.svg");
+.custom-info {
+  position: relative;
+  width: 125px;
+  height: 100px;
+  text-align: center;
+  padding-top: 35px;
+  background-color: #F0F0F0;
+  box-sizing: border-box;
+}
+
+.custom-info:after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: rgba(220, 220, 220, 0.5);
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+}
+
+/*  .custom-link::after {
+    content: url("");
     position: absolute;
     top: calc(50% - 20px);
     right: 42px;
@@ -1450,26 +1480,44 @@ display: flex;
     background-color: rgba(220, 220, 220, 0.5);
     border-radius: 50%;
     z-index: 2;
- }
+ } */
 
  .custom-link:hover:before {
   background-color: #FFC700;
  }
 
  .custom-link:active {
-  opacity: 0.3;
- }
+   opacity: 0.3;
+  }
+
+  .custom-link:active ~ .custom-info {
+    background-color: rgb(251, 251, 251);
+  }
 
  .custom-link:focus-visible {
   outline: 2px solid #AF4FFF;
   outline-offset: 2px;
  }
 
+.custom-round {
+  padding: 10px 19px;
+}
+
+.custom-round:focus-visible {
+  outline: 2px solid #AF4FFF;
+  outline-offset: 2px;
+}
+
+.custom-i {
+  position: relative;
+  z-index: 1;
+}
+
  .custom-tooltip {
   display: block;
   display: none;
   position: absolute;
-  right: 140px;
+  right: -40px;
   top: 85px;
   width: 166px;
   color: #ffffff;
@@ -1482,6 +1530,7 @@ display: flex;
   background-color: #1A1A1A;
   text-transform: none;
   text-align: center;
+  z-index: 10;
  }
 
  .custom-tooltip::before {
@@ -1498,7 +1547,7 @@ display: flex;
 
 /* (?) :hover на весь блок .custom-link воздействует на .custom-tooltip, а :hover::after - не воздействует.
         Возможно ли отслеживать :hover именно псеводэлемента? */
- .custom-link:hover ~ .custom-tooltip {
+ .custom-info:hover .custom-tooltip {
   display: block;
  }
 
@@ -2344,24 +2393,16 @@ display: flex;
 
 .card-cover {
   position: absolute;
-  background-color: #ffffff;
-  opacity: 0.5;
-  width: 100%;
-  height: 380px;
-  opacity: 0;
+  top: 0;
+  left: 0;
   z-index: 10;
-}
-
-
-.btn-cardcover {
-  display: block;
-  min-width: 220px;
-  max-width: 220px;
-  min-height: 40px;
-  padding: 10px;
-  border: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 180px;
   box-sizing: border-box;
-  background-color: transparent;
+
   font-family: "Raleway", sans-serif;
   font-weight: 800;
   font-size: 18px;
@@ -2369,46 +2410,35 @@ display: flex;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   text-align: center;
-  margin-bottom: 50px;
-  position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 1;
-  position: absolute;
-  left: calc(50% - 110px);
-  top: calc(190px - 20px);
-  opacity: 0;
 }
 
-.btn-cardcover::after {
-  content:"";
-  background-color: #FFE17F;
-  position: absolute;
-  left: 0;
-  top: calc(50% - 4px);
-  width: 100%;
-  height: 8px;
-  z-index: -1;
-}
-
-/* .btn-cardcover:hover:after {
-  background-color: #FFE17F;
-}
- */
-.card-link:hover .card-cover {
-  opacity: 0.5;
-}
-
-.card-cover:hover ~ .btn-cardcover {
-  opacity: 10;
-  z-index: 10;
-}
-
-.card-cover:active ~ .btn-cardcover:after {
+.card:hover .card-cover {
   opacity: 1;
+}
+
+.card:active .card-cover:before {
   background-color: #FFC700;
 }
 
+.card-cover:before {
+  content: "";
+  display: block;
+  min-width: 220px;
+  max-width: 220px;
+  height: 8px;
+  margin-top: 16px;
+  border: none;
+  box-sizing: border-box;
+  background-color: #FFE17F;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: -1;
+  position: absolute;
+  left: calc(50% - 110px);
+  top: calc(190px - 20px);
+}
 
 .card-new:after {
   content:"New";
@@ -2606,7 +2636,6 @@ display: flex;
 
 .modal-form {
   width: 920px;
-  min-height: 568px;
   margin: 0 auto;
   background-color: #ffffff;
   opacity: 1;
@@ -2621,15 +2650,19 @@ display: flex;
 .modal-line {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 40px;
   margin-bottom: 42px;
 }
 
 .modal-title {
+  max-width: 600px;
   font-family: "Raleway", sans-serif;
   font-weight: 800;
   font-size: 50px;
   line-height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .modal-close {
@@ -2662,6 +2695,7 @@ display: flex;
   line-height: 20px;
   letter-spacing: -0.36px;
   margin-bottom: 14px;
+  width: 360px;
 }
 
 .modal-input {
@@ -2707,6 +2741,9 @@ display: flex;
 .modal-comment {
   font-size: 14px;
   line-height: 20px;
+  max-width: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-clientname,
@@ -2734,7 +2771,7 @@ display: flex;
 
 .modal-counter {
   display: flex;
-  margin-top: 5px;
+  margin-top: -5px;
 }
 
 .modal-invalid { /* Дополнительный класс при некорректном вводе, для всех полей. */
@@ -2742,8 +2779,9 @@ display: flex;
 }
 
 .label-amount {
+  display: inline-block;
+  max-width: 110px;
   padding-right: 8px;
-  max-width: 160px;
 }
 
 .amount-info {
